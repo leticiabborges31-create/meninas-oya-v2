@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documentação Técnica — Meninas Oyá v2</title>
+<style>
+  :root {
+    --ember: #D94F1E;
+    --flame: #E8632F;
+    --forest: #1A2E1A;
+    --deep:  #0F1F0F;
+    --gold:  #C9963A;
+    --fog:   #E8E4DF;
+    --steel: #6B7280;
+    --white: #FFFFFF;
+    --slide-w: 297mm;
+    --slide-h: 210mm;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #2a2a2a;
+    color: var(--forest);
+  }
+
+  /* ── SLIDE BASE ─────────────────────────────────── */
+  .slide {
+    width: var(--slide-w);
+    min-height: var(--slide-h);
+    background: #fff;
+    margin: 16px auto;
+    padding: 18mm 20mm;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,.4);
+    display: flex;
+    flex-direction: column;
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+
+  /* ── SLIDE CAPA ─────────────────────────────────── */
+  .slide-cover {
+    background: var(--deep);
+    color: white;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .cover-badge {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); font-weight: 600; margin-bottom: 20px;
+  }
+  .cover-title {
+    font-size: 52px; font-weight: 800; line-height: 1.05;
+    background: linear-gradient(135deg, var(--ember), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+  }
+  .cover-subtitle {
+    font-size: 18px; color: rgba(255,255,255,.6); margin-bottom: 32px;
+  }
+  .cover-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+  .cover-tag {
+    padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.75);
+  }
+  .cover-decor {
+    position: absolute; right: -80px; top: -80px;
+    width: 350px; height: 350px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(217,79,30,.25), transparent 70%);
+  }
+  .cover-decor2 {
+    position: absolute; right: 60px; bottom: -60px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,150,58,.15), transparent 70%);
+  }
+  .cover-footer {
+    position: absolute; bottom: 14mm; left: 20mm; right: 20mm;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 11px; color: rgba(255,255,255,.35); border-top: 1px solid rgba(255,255,255,.1);
+    padding-top: 10px;
+  }
+
+  /* ── SLIDE HEADER ───────────────────────────────── */
+  .slide-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
+    padding-bottom: 12px; border-bottom: 2.5px solid var(--ember);
+  }
+  .slide-num {
+    width: 34px; height: 34px; border-radius: 8px;
+    background: var(--ember); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0;
+  }
+  .slide-title { font-size: 22px; font-weight: 800; color: var(--forest); }
+  .slide-subtitle { font-size: 12px; color: var(--steel); margin-top: 1px; }
+
+  /* ── DARK SLIDE ─────────────────────────────────── */
+  .slide-dark {
+    background: var(--forest);
+    color: white;
+  }
+  .slide-dark .slide-title { color: white; }
+  .slide-dark .slide-subtitle { color: rgba(255,255,255,.5); }
+  .slide-dark .slide-header { border-bottom-color: var(--ember); }
+
+  /* ── TYPOGRAPHY ─────────────────────────────────── */
+  h3 { font-size: 14px; font-weight: 700; color: var(--forest); margin-bottom: 8px; }
+  .slide-dark h3 { color: rgba(255,255,255,.9); }
+  p, li { font-size: 12.5px; line-height: 1.55; color: #333; }
+  .slide-dark p, .slide-dark li { color: rgba(255,255,255,.8); }
+  ul { padding-left: 18px; }
+  li { margin-bottom: 4px; }
+
+  /* ── LAYOUT HELPERS ─────────────────────────────── */
+  .cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .cols-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
+  .mt { margin-top: 14px; }
+  .mt-sm { margin-top: 8px; }
+  .flex-1 { flex: 1; }
+
+  /* ── CARDS ──────────────────────────────────────── */
+  .card {
+    background: #F9F7F5; border-radius: 10px; padding: 12px 14px;
+    border-left: 4px solid var(--ember);
+  }
+  .card-green { border-left-color: #22863A; }
+  .card-blue  { border-left-color: #0969DA; }
+  .card-gold  { border-left-color: var(--gold); }
+  .card-gray  { border-left-color: #8B949E; }
+  .card-dark  {
+    background: rgba(255,255,255,.07); border-radius: 10px;
+    padding: 12px 14px; border-left: 4px solid var(--ember);
+  }
+  .card-dark h3 { color: white; }
+  .card-dark p, .card-dark li { color: rgba(255,255,255,.75); }
+
+  /* ── BADGE ──────────────────────────────────────── */
+  .badge {
+    display: inline-block; padding: 2px 10px; border-radius: 20px;
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  }
+  .badge-red   { background: rgba(217,79,30,.12); color: var(--ember); }
+  .badge-green { background: rgba(34,134,58,.12); color: #22863A; }
+  .badge-blue  { background: rgba(9,105,218,.12); color: #0969DA; }
+  .badge-gold  { background: rgba(201,150,58,.15); color: #A0762B; }
+  .badge-gray  { background: rgba(107,114,128,.1); color: var(--steel); }
+
+  /* ── TABLE ──────────────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  th {
+    background: var(--forest); color: white; padding: 6px 10px;
+    text-align: left; font-weight: 600; font-size: 11px;
+  }
+  td { padding: 5px 10px; border-bottom: 1px solid #EEE; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  .slide-dark table th { background: rgba(255,255,255,.15); }
+  .slide-dark table td { border-bottom-color: rgba(255,255,255,.1); color: rgba(255,255,255,.8); }
+  .slide-dark tr:nth-child(even) td { background: rgba(255,255,255,.04); }
+
+  /* ── CODE ───────────────────────────────────────── */
+  code {
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 10.5px; background: rgba(217,79,30,.08);
+    color: var(--ember); padding: 1px 5px; border-radius: 4px;
+  }
+  .code-block {
+    background: #0D1117; border-radius: 8px; padding: 12px 14px;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 10.5px; color: #E6EDF3; line-height: 1.7;
+    margin-top: 8px; overflow: hidden;
+  }
+  .code-block .kw  { color: #FF7B72; }
+  .code-block .str { color: #A5D6FF; }
+  .code-block .cmt { color: #8B949E; }
+  .code-block .fn  { color: #D2A8FF; }
+  .code-block .val { color: #79C0FF; }
+
+  /* ── FLOW ───────────────────────────────────────── */
+  .flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .flow-item {
+    background: var(--forest); color: white;
+    padding: 6px 14px; border-radius: 8px; font-size: 11px; font-weight: 600;
+  }
+  .flow-arrow { color: var(--ember); font-size: 18px; font-weight: 800; }
+  .flow-dark .flow-item { background: rgba(255,255,255,.12); }
+
+  /* ── LAYER BOX ──────────────────────────────────── */
+  .layer {
+    border-radius: 10px; padding: 10px 14px; text-align: center;
+    font-weight: 700; font-size: 12px;
+  }
+  .layer-ctrl  { background: rgba(217,79,30,.12); color: var(--ember); border: 1.5px solid rgba(217,79,30,.3); }
+  .layer-svc   { background: rgba(9,105,218,.1); color: #0969DA;    border: 1.5px solid rgba(9,105,218,.25); }
+  .layer-repo  { background: rgba(34,134,58,.1); color: #22863A;    border: 1.5px solid rgba(34,134,58,.25); }
+  .layer-ent   { background: rgba(201,150,58,.1); color: #A0762B;   border: 1.5px solid rgba(201,150,58,.3); }
+  .layer-db    { background: rgba(107,114,128,.1); color: #444;     border: 1.5px solid rgba(107,114,128,.25); }
+  .layer-arrow {
+    text-align: center; color: var(--steel); font-size: 20px; margin: 3px 0; line-height: 1;
+  }
+
+  /* ── STATUS ─────────────────────────────────────── */
+  .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
+  .dot-green  { background: #22863A; }
+  .dot-red    { background: #D94F1E; }
+  .dot-gold   { background: var(--gold); }
+
+  /* ── FOOTER ─────────────────────────────────────── */
+  .slide-foot {
+    margin-top: auto; padding-top: 10px;
+    border-top: 1px solid #EEE;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10px; color: var(--steel);
+  }
+  .slide-dark .slide-foot { border-top-color: rgba(255,255,255,.12); color: rgba(255,255,255,.35); }
+
+  /* ── PRINT ──────────────────────────────────────── */
+  @media print {
+    body { background: white; }
+    .slide {
+      margin: 0; box-shadow: none;
+      width: 100%; min-height: 100vh;
+      padding: 14mm 16mm;
+    }
+    @page { size: A4 landscape; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 1 — CAPA -->
+<div class="slide slide-cover">
+  <div class="cover-decor"></div>
+  <div class="cover-decor2"></div>
+  <div class="cover-badge">Documentação Técnica · v2.0 · 2026</div>
+  <div class="cover-title">Meninas Oyá</div>
+  <div class="cover-subtitle">Plataforma de Gestão de Atividades Científicas e Educacionais</div>
+  <div class="cover-tags">
+    <span class="cover-tag">Spring Boot 3.4.1</span>
+    <span class="cover-tag">Java 17</span>
+    <span class="cover-tag">Vue 3</span>
+    <span class="cover-tag">PostgreSQL</span>
+    <span class="cover-tag">JWT · RSA</span>
+    <span class="cover-tag">Spring Security</span>
+    <span class="cover-tag">Arquitetura MVC</span>
+  </div>
+  <div class="cover-footer">
+    <span>meninas-oya-v2</span>
+    <span>Backend: Spring Boot · Frontend: Vue 3 + Vite</span>
+    <span>1 / 17</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 2 — VISÃO GERAL -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">02</div>
+    <div><div class="slide-title">Visão Geral do Projeto</div>
+    <div class="slide-subtitle">O que é o Meninas Oyá e quais problemas resolve</div></div>
+  </div>
+  <div class="cols-2" style="flex:1; gap:20px;">
+    <div>
+      <h3>🎯 Propósito</h3>
+      <p style="margin-bottom:12px;">Sistema web para gerenciar professores, alunas, atividades e instituições participantes do programa <strong>Meninas Oyá</strong> — iniciativa que promove a inclusão de meninas nas ciências e tecnologias.</p>
+      <h3>👥 Perfis de Acesso</h3>
+      <div class="card" style="margin-bottom:8px;">
+        <strong>ADMIN</strong> — Coordenação do programa. Aprova/rejeita professores, gerencia todas as entidades, reseta senhas.
+      </div>
+      <div class="card card-blue" style="margin-bottom:8px;">
+        <strong>PROFESSOR</strong> — Cadastra atividades, gerencia suas alunas, atualiza seu próprio perfil.
+      </div>
+      <div class="card card-gray">
+        <strong>Público</strong> — Visitantes podem visualizar atividades e fazer pré-cadastro como professor.
+      </div>
+    </div>
+    <div>
+      <h3>📦 Módulos do Sistema</h3>
+      <ul style="margin-bottom:12px;">
+        <li><strong>Autenticação</strong> — Login com JWT + controle de roles</li>
+        <li><strong>Professores</strong> — Cadastro com aprovação pendente</li>
+        <li><strong>Alunas</strong> — Vinculação por tipo de bolsa/voluntariado</li>
+        <li><strong>Atividades</strong> — Publicação com fotos e localização</li>
+        <li><strong>Escolas/Instituições</strong> — Catálogo de parceiros</li>
+        <li><strong>Cidades</strong> — Geolocalização por UF/município</li>
+        <li><strong>Fotos</strong> — Upload de imagens associadas</li>
+      </ul>
+      <h3>🌐 Contexto de Deploy</h3>
+      <div class="card card-gold">
+        <p>Backend em <strong>:8080</strong> · Frontend em <strong>:5173</strong> (dev)</p>
+        <p style="margin-top:4px;">Docker disponível para o banco PostgreSQL</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Meninas Oyá v2 — Documentação Técnica</span><span>2 / 17</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 3 — ARQUITETURA MVC -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">03</div>
+    <div><div class="slide-title">Arquitetura MVC</div>
+    <div class="slide-subtitle">Organização em camadas do backend Spring Boot</div></div>
+  </div>
+  <div class="cols-2" style="flex:1; gap:24px; align-items:start;">
+    <div>
+      <h3 style="margin-bottom:12px;">Camadas do Backend</h3>
+      <div class="layer layer-ctrl">🌐 Controller (REST API)</div>
+      <div class="layer-arrow">↕</div>
+      <div class="layer layer-svc">⚙️ Service (Regras de Negócio)</div>
+      <div class="layer-arrow">↕</div>
+      <div class="layer layer-repo">🗄️ Repository (Spring Data JPA)</div>
+      <div class="layer-arrow">↕</div>
+      <div class="layer layer-ent">📦 Entity (Modelo de Dados / JPA)</div>
+      <div class="layer-arrow">↕</div>
+      <div class="layer layer-db">🐘 PostgreSQL (Banco de Dados)</div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px;">Responsabilidades</h3>
+      <div class="card" style="margin-bottom:8px;">
+        <strong style="color:var(--ember);">Controller</strong><br>
+        Recebe requisições HTTP, valida entrada com <code>@Valid</code>, delega ao Service, retorna <code>ResponseEntity</code>. Usa <code>@RestController</code> + <code>@PreAuthorize</code>.
+      </div>
+      <div class="card card-blue" style="margin-bottom:8px;">
+        <strong style="color:#0969DA;">Service</strong><br>
+        Contém toda a lógica de negócio: validações, transformações, regras de acesso por role, orquestração de múltiplos repositórios.
+      </div>
+      <div class="card card-green" style="margin-bottom:8px;">
+        <strong style="color:#22863A;">Repository</strong><br>
+        Interfaces <code>JpaRepository</code> com queries derivadas (<code>findBy...</code>) e <code>@Query</code> customizadas.
+      </div>
+      <div class="card card-gold">
+        <strong style="color:var(--gold);">Entity</strong><br>
+        Classes anotadas com <code>@Entity</code>, mapeamentos JPA, validações Bean Validation (<code>@NotBlank</code>, <code>@Email</code>), Lombok.
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Meninas Oyá v2 — Documentação Técnica</span><span>3 / 17</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 4 — STACK -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">04</div>
+    <div><div class="slide-title">Stack Tecnológica</div>
+    <div class="slide-subtitle">Ferramentas e frameworks utilizados no projeto</div></div>
+  </div>
+  <div class="cols-2" style="flex:1; gap:20px;">
+    <div>
+      <h3 style="margin-bottom:10px;">🔧 Backend</h3>
+      <table>
+        <thead><tr><th>Tecnologia</th><th>Versão</th><th>Função</th></tr></thead>
+        <tbody>
+          <tr><td>Java</td><td>17</td><td>Linguagem principal</td></tr>
+          <tr><td>Spring Boot</td><td>3.4.1</td><td>Framework web</td></tr>
+          <tr><td>Spring Security</td><td>—</td><td>Autenticação/autorização</td></tr>
+          <tr><td>Spring Data JPA</td><td>—</td><td>ORM / acesso ao banco</td></tr>
+          <tr><td>Spring Validation</td><td>—</td><td>Validação de DTOs</td></tr>
+          <tr><td>OAuth2 Resource Server</td><td>—</td><td>Suporte JWT</td></tr>
+          <tr><td>JJWT (jjwt-api)</td><td>0.11.5</td><td>Geração/validação JWT</td></tr>
+          <tr><td>PostgreSQL Driver</td><td>—</td><td>Conector banco de dados</td></tr>
+          <tr><td>Lombok</td><td>1.18.42</td><td>Redução de boilerplate</td></tr>
+          <tr><td>Maven</td><td>—</td><td>Build e dependências</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px;">🎨 Frontend</h3>
+      <table>
+        <thead><tr><th>Tecnologia</th><th>Versão</th><th>Função</th></tr></thead>
+        <tbody>
+          <tr><td>Vue.js</td><td>3.5.29</td><td>Framework UI reativo</td></tr>
+          <tr><td>Vite</td><td>7.3.1</td><td>Build tool / dev server</td></tr>
+          <tr><td>Vue Router</td><td>5.0.3</td><td>SPA routing</td></tr>
+          <tr><td>Axios</td><td>1.13.6</td><td>Cliente HTTP com interceptors</td></tr>
+          <tr><td>ESLint + OxLint</td><td>—</td><td>Qualidade de código</td></tr>
+        </tbody>
+      </table>
+      <h3 style="margin-bottom:10px; margin-top:14px;">🐘 Infraestrutura</h3>
+      <table>
+        <thead><tr><th>Tecnologia</th><th>Função</th></tr></thead>
+        <tbody>
+          <tr><td>PostgreSQL</td><td>Banco de dados relacional</td></tr>
+          <tr><td>Docker</td><td>Container para o banco (pasta /docker)</td></tr>
+        </tbody>
+      </table>
+      <div class="card card-gold mt-sm">
+        <strong>Criptografia RSA</strong> — O JWT é assinado com par de chaves RSA (RS256). A chave pública/privada é injetada via <code>application.properties</code> com as propriedades <code>jwt.public.key</code> e <code>jwt.private.key</code>.
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Meninas Oyá v2 — Documentação Técnica</span><span>4 / 17</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 5 — ENTIDADES -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">05</div>
+    <div><div class="slide-title">Modelo de Dados — Entidades JPA</div>
+    <div class="slide-subtitle">Mapeamento objeto-relacional e relacionamentos</div></div>
+  </div>
+  <div class="cols-3" style="flex:1; align-items:start; gap:12px;">
+    <div>
+      <div class="card" style="margin-bottom:10px;">
+        <h3>👤 Usuario</h3>
+        <ul style="font-size:11px;">
+          <li><code>usuarioId</code> — UUID (PK)</li>
+          <li><code>username</code> — email (único)</li>
+          <li><code>password</code> — BCrypt hash</li>
+          <li><code>roles</code> — ManyToMany → Role</li>
+        </ul>
+      </div>
+      <div class="card card-gray">
+        <h3>🏷️ Role</h3>
+        <ul style="font-size:11px;">
+          <li><code>roleId</code> — Long (PK)</li>
+          <li><code>name</code> — ROLE_ADMIN / ROLE_PROFESSOR</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card card-blue" style="margin-bottom:10px;">
+        <h3>🎓 Professor</h3>
+        <ul style="font-size:11px;">
+          <li><code>id</code> — Long (PK)</li>
+          <li><code>email</code> — único, não nulo</li>
+          <li><code>cpf</code> — 11 dígitos, único</li>
+          <li><code>nome</code>, <code>idade</code></li>
+          <li><code>escola</code> — nome da instituição</li>
+          <li><code>linkCurriculoLattes</code></li>
+          <li><code>periodoVigenciaInicio/Fim</code></li>
+          <li><code>status</code> — PENDENTE / APROVADO / REJEITADO</li>
+          <li><code>cidade</code> — ManyToOne → Cidade</li>
+          <li><code>usuario</code> — OneToOne → Usuario</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card card-green" style="margin-bottom:10px;">
+        <h3>📚 Atividade</h3>
+        <ul style="font-size:11px;">
+          <li><code>id</code> — Long</li>
+          <li><code>titulo</code>, <code>descricao</code></li>
+          <li><code>data</code>, <code>localizacao</code></li>
+          <li><code>fotoDados</code> — byte[] (bytea)</li>
+          <li><code>foto2Dados</code> — byte[] (bytea)</li>
+          <li><code>professor</code> — ManyToOne</li>
+        </ul>
+      </div>
+      <div class="card card-gold" style="margin-bottom:10px;">
+        <h3>🏫 Escola</h3>
+        <ul style="font-size:11px;">
+          <li><code>id</code>, <code>nome</code></li>
+          <li><code>tipo</code> — TipoEscola (enum)</li>
+          <li><code>nivelEducacional</code> — enum</li>
+          <li><code>natureza</code>, <code>esferaAdministrativa</code></li>
+          <li><code>cidade</code> — ManyToOne</li>
+          <li><code>emailContato</code></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>👧 Aluno</h3>
+        <ul style="font-size:11px;">
+          <li><code>id</code>, <code>nome</code>, <code>idade</code></li>
+          <li><code>vinculo</code> — BOLSISTA_ADC / BOLSISTA_ICJ / BOLSISTA_IC / VOLUNTARIA</li>
+          <li><code>escola</code> — ManyToOne</li>
+          <li><code>cidade</code> — ManyToOne</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Meninas Oyá v2 — Documentação Técnica</span><span>5 / 17</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 6 — SEGURANÇA -->
+<div class="slide slide-dark">
+  <div class="slide-header">
+    <div class="slide-num">06</div>
+    <div><div class="slide-title">Segurança — Spring Security + JWT</div>
+    <div class="slide-subtitle">Configuração do SecurityFilterChain e estratégia de tokens</div></div>
+  </div>
+  <div class="cols-2" style="flex:1; gap:20px; align-items:start;">
+    <div>
+      <h3 style="margin-bottom:10px;">🔒 SecurityFilterChain</h3>
+      <div class="code-block">
+<span class="cmt">// SecurityConfig.java</span>
+.csrf(<span class="fn">disable</span>())
+.cors(<span class="fn">withDefaults</span>())   <span class="cmt">// CorsConfig separado</span>
+.sessionManagement(
+  <span class="val">STATELESS</span>           <span class="cmt">// sem session server-side</span>
+)
+.authorizeHttpRequests(
+  POST <span class="str">"/auth"</span>           → <span class="val">permitAll</span>
+  POST <span class="str">"/api/professores/cadastro"</span> → <span class="val">permitAll</span>
+  GET  <span class="str">"/atividades/**"</span>  → <span class="val">permitAll</span>
+  GET  <span class="str">"/api/cidades/**"</span> → <span class="val">permitAll</span>
+  GET  <span class="str">"/api/escolas/simples"</span> → <span class="val">permitAll</span>
+  OPTIONS <span class="str">"/**"</span>          → <span class="val">permitAll</span>
+  anyRequest()         → <span class="val">authenticated</span>
+)
+.oauth2ResourceServer(
+  jwt → <span class="fn">jwtAuthenticationConverter</span>()
+)
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px;">🔑 JWT com RSA (RS256)</h3>
+      <div class="card-dark" style="margin-bottom:10px;">
+        <h3>Encoder (assinar token)</h3>
+        <p>Usa a <strong>chave privada RSA</strong> para assinar o JWT via <code>NimbusJwtEncoder</code>. O token contém: <code>issuer</code>, <code>subject</code> (username), <code>issuedAt</code>, <code>expiresAt</code> (+3600s), <code>authorities</code> (SCOPE_*).</p>
+      </div>
+      <div class="card-dark" style="margin-bottom:10px;">
+        <h3>Decoder (validar token)</h3>
+        <p>Usa a <strong>chave pública RSA</strong> via <code>NimbusJwtDecoder.withPublicKey()</code>. O converter extrai o campo <code>authorities</code> e mapeia para <code>SimpleGrantedAuthority</code>.</p>
+      </div>
+      <div class="card-dark">
+        <h3>🔐 Senhas — BCrypt</h3>
+        <p>Todas as senhas são hasheadas com <code>BCryptPasswordEncoder</code>. Na criação do usuário, a senha em texto puro é hasheada antes de persistir. Na autenticação, <code>passwordEncoder.matches()</code> compara.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Meninas Oyá v2 — Documentação Técnica</span><span>6 / 17</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 7 — FLUXO JWT -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">07</div>
+    <div><div class="slide-title">Fluxo Completo de Autenticação JWT</div>
+    <div class="slide-subtitle">Da tela de login até o acesso a recursos protegidos</div></div>
+  </div>
+  <div style="flex:1; display:flex; flex-direction:column; gap:12px;">
+    <div style="background:#F9F7F5; border-radius:12px; padding:14px 18px;">
+      <h3 style="margin-bottom:10px;">Passo a Passo</h3>
+      <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:10px; text-align:center;">
+        <div style="background:var(--forest);color:white;border-radius:8px;padding:10px 6px;font-size:11px;font-weight:700;">1. Frontend<br><span style="font-weight:400;font-size:10px;">POST /auth<br>{username, password}</span></div>
+        <div style="background:rgba(217,79,30,.1);color:var(--ember);border-radius:8px;padding:10px 6px;font-size:11px;font-weight:700;border:1.5px solid rgba(217,79,30,.3);">2. AuthService<br><span style="font-weight:400;font-size:10px;">Busca usuario<br>valida BCrypt</span></div>
+        <div style="background:rgba(9,105,218,.1);color:#0969DA;border-radius:8px;padding:10px 6px;font-size:11px;font-weight:700;border:1.5px solid rgba(9,105,218,.25);">3. Verifica Status<br><span style="font-weight:400;font-size:10px;">PENDENTE → 403<br>REJEITADO → 403</span></div>
+        <div style="background:rgba(34,134,58,.1);color:#22863A;border-radius:8px;padding:10px 6px;font-size:11px;font-weight:700;border:1.5px solid rgba(34,134,58,.25);">4. Gera JWT<br><span style="font-weight:400;font-size:10px;">RSA RS256<br>exp: +3600s</span></div>
+        <div style="background:rgba(201,150,58,.1);color:#A0762B;border-radius:8px;padding:10px 6px;font-size:11px;font-weight:700;border:1.5px solid rgba(201,150,58,.3);">5. Retorna Token<br><span style="font-weight:400;font-size:10px;">accessToken<br>expiresIn: 3600</span></div>
+      </div>
+    </div>
+    <div class="cols-2" style="gap:14px;">
+      <div class="card">
+        <h3>Frontend — Armazenamento do Token</h3>
+        <p style="margin-bottom:6px;">Após o login bem-sucedido, o Vue decodifica o payload Base64 do JWT (<code>atob(token.split('.')[1])</code>) para extrair o campo <code>authorities</code>.</p>
+        <ul style="font-size:11.5px;">
+          <li>Token salvo em <code>localStorage.setItem("token", ...)</code></li>
+          <li>Se authorities contém <strong>ADMIN</strong> → redireciona para <code>/painel-admin</code></li>
+          <li>Caso contrário → redireciona para <code>/painel</code></li>
+        </ul>
+      </div>
+      <div class="card card-blue">
+        <h3>Axios — Interceptor de Requisição</h3>
+        <p style="margin-bottom:6px;">O serviço <code>api.js</code> possui dois interceptors configurados:</p>
+        <ul style="font-size:11.5px;">
+          <li><strong>Request:</strong> Lê o token do <code>localStorage</code> e adiciona o header <code>Authorization: Bearer {token}</code> em toda requisição autenticada.</li>
+          <li><strong>Response (erro 401):</strong> Remove token, <code>logado</code> e <code>usuario</code> do localStorage — força novo login.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card card-gold">
+      <h3>Payload do JWT gerado</h3>
+      <p><code>{ "iss": "Meninas", "sub": "usuario@email.com", "iat": ..., "exp": ..., "authorities": "SCOPE_PROFESSOR" }</code> — O subject é o <strong>username</strong> (email normalizado) e authorities usa prefixo <code>SCOPE_</code> (convertido de <code>ROLE_</code> na geração).</p>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Meninas Oyá v2 — Documentação Técnica</span><span>7 / 17</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 8 — CONTROLE DE ACESSO -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">08</div>
+    <div><div class="slide-title">Controle de Acesso — Roles e Permissões</div>
+    <div class="slide-subtitle">@PreAuthorize e validações programáticas por endpoint</div></div>
+  </div>
+  <div class="cols-2" style="flex:1; gap:20px; align-items:start;">
+    <div>
+      <h3 style="margin-bottom:10px;">🔑 Roles do Sistema</h3>
+      <div class="card" style="margin-bottom:10px;">
+        <strong>SCOPE_ADMIN</strong> <span class="badge badge-red">Admin</span>
+        <ul style="margin-top:6px; font-size:11.5px;">
+          <li>Criado automaticamente na startup via <code>AdminUserConfig</code></li>
+          <li>Credenciais via variáveis de ambiente (<code>admin.username</code>, <code>admin.password</code>)</li>
+          <li>Acesso total a todos os endpoints protegidos</li>
+          <li>Pode criar/editar/deletar qualquer entidade</li>
+          <li>Aprova ou rejeita professores pendentes</li>
+          <li>Reseta senha de qualquer professor</li>
+        </ul>
+      </div>
+      <div class="card card-blue">
+        <strong>SCOPE_PROFESSOR</strong> <span class="badge badge-blue">Professor</span>
+        <ul style="margin-top:6px; font-size:11.5px;">
+          <li>Criado via cadastro público ou pelo admin</li>
+          <li>Acesso restrito às próprias atividades e dados</li>
+          <li>Não pode editar/excluir atividade de outro professor</li>
+          <li>Não pode gerenciar perfil de outro professor</li>
+          <li>Pode publicar atividades, gerenciar suas alunas</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px;">🛡️ Anotações de Segurança</h3>
+      <table>
+        <thead><tr><th>Endpoint</th><th>Permissão</th></tr></thead>
+        <tbody>
+          <tr><td><code>GET /api/professores</code></td><td><span class="badge badge-red">ADMIN</span></td></tr>
+          <tr><td><code>GET /api/professores/pendentes</code></td><td><span class="badge badge-red">ADMIN</span></td></tr>
+          <tr><td><code>GET /api/professores/{id}</code></td><td><span class="badge badge-red">ADMIN</span></td></tr>
+          <tr><td><code>GET /api/professores/me</code></td><td><span class="badge badge-blue">PROFESSOR</span></td></tr>
+          <tr><td><code>POST /api/professores</code></td><td><span class="badge badge-red">ADMIN</span></td></tr>
+          <tr><td><code>POST /api/professores/cadastro</code></td><td><span class="badge badge-gray">Público</span></td></tr>
+          <tr><td><code>PUT /api/professores/{id}/aprovar</code></td><td><span class="badge badge-red">ADMIN</span></td></tr>
+          <tr><td><code>PUT /api/professores/{id}</code></td><td><span class="badge badge-red">ADMIN</span> ou próprio professor</td></tr>
+          <tr><td><code>DELETE /api/professores/{id}</code></td><td><span class="badge badge-red">ADMIN</span> ou próprio professor</td></tr>
+          <tr><td><code>GET /atividades/minhas</code></td><td><span class="badge badge-blue">PROFESSOR</span></td></tr>
+          <tr><td><code>GET /atividades/**</code></td><td><span class="badge badge-gray">Público</span></td></tr>
+          <tr><td><code>POST/PUT/DELETE /atividades</code></td><td><span class="badge badge-blue">PROFESSOR</span> ou <span class="badge badge-red">ADMIN</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Meninas Oyá v2 — Documentação Técnica</span><span>8 / 17</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 9 — API REST -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">09</div>
+    <div><div class="slide-title">API REST — Endpoints Completos</div>
+    <div class="slide-subtitle">Todos os controllers e seus métodos HTTP</div></div>
+  </div>
+  <div class="cols-2" style="flex:1; gap:16px; align-items:start;">
+    <div>
+      <h3 style="margin-bottom:6px;">Auth &amp; Usuário</h3>
+      <table style="margin-bottom:10px;">
+        <thead><tr><th>Método</th><th>Rota</th><th>Ação</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-green">POST</span></td><td><code>/auth</code></td><td>Login — retorna JWT</td></tr>
+          <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/usuarios</code></td><td>Listar usuários (ADMIN)</td></tr>
+          <tr><td><span class="badge badge-green">POST</span></td><td><code>/api/usuarios</code></td><td>Criar usuário (ADMIN)</td></tr>
+          <tr><td><span class="badge badge-gold">PUT</span></td><td><code>/api/usuarios/{id}</code></td><td>Atualizar usuário</td></tr>
+          <tr><td><span class="badge badge-red">DELETE</span></td><td><code>/api/usuarios/{username}</code></td><td>Deletar usuário</td></tr>
+        </tbody>
+      </table>
+      <h3 style="margin-bottom:6px;">Professores</h3>
+      <table style="margin-bottom:10px;">
+        <thead><tr><th>Método</th><th>Rota</th><th>Ação</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/professores</code></td><td>Listar todos (?q=busca)</td></tr>
+          <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/professores/me</code></td><td>Perfil do professor logado</td></tr>
+          <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/professores/pendentes</code></td><td>Listar pendentes</td></tr>
+          <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/professores/{id}</code></td><td>Buscar por ID</td></tr>
+          <tr><td><span class="badge badge-green">POST</span></td><td><code>/api/professores/cadastro</code></td><td>Auto-cadastro (público)</td></tr>
+          <tr><td><span class="badge badge-green">POST</span></td><td><code>/api/professores</code></td><td>Criar por admin (aprovado)</td></tr>
+          <tr><td><span class="badge badge-gold">PUT</span></td><td><code>/api/professores/{id}/aprovar</code></td><td>Aprovar professor</td></tr>
+          <tr><td><span class="badge badge-gold">PUT</span></td><td><code>/api/professores/{id}/rejeitar</code></td><td>Rejeitar professor</td></tr>
+          <tr><td><span class="badge badge-gold">PUT</span></td><td><code>/api/professores/{id}</code></td><td>Atualizar dados</td></tr>
+          <tr><td><span class="badge badge-gold" style="background:rgba(107,114,128,.12);color:#555;">PATCH</span></td><td><code>/api/professores/{id}/reset-senha</code></td><td>Resetar senha</td></tr>
+          <tr><td><span class="badge badge-red">DELETE</span></td><td><code>/api/professores/{id}</code></td><td>Deletar professor+usuário</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3 style="margin-bottom:6px;">Atividades</h3>
+      <table style="margin-bottom:10px;">
+        <thead><tr><th>Método</th><th>Rota</th><th>Ação</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-blue">GET</span></td><td><code>/atividades</code></td><td>Listar (?uf= &amp;?cidadeId=)</td></tr>
+          <tr><td><span class="badge badge-blue">GET</span></td><td><code>/atividades/minhas</code></td><td>Atividades do professor</td></tr>
+          <tr><td><span class="badge badge-blue">GET</span></td><td><code>/atividades/{id}</code></td><td>Buscar por ID</td></tr>
+          <tr><td><span class="badge badge-blue">GET</span></td><td><code>/atividades/{id}/foto</code></td><td>Download foto 1</td></tr>
+          <tr><td><span class="badge badge-blue">GET</span></td><td><code>/atividades/{id}/foto2</code></td><td>Download foto 2</td></tr>
+          <tr><td><span class="badge badge-green">POST</span></td><td><code>/atividades</code></td><td>Criar (multipart/form-data)</td></tr>
+          <tr><td><span class="badge badge-gold">PUT</span></td><td><code>/atividades/{id}</code></td><td>Atualizar atividade</td></tr>
+          <tr><td><span class="badge badge-red">DELETE</span></td><td><code>/atividades/{id}</code></td><td>Excluir atividade</td></tr>
+        </tbody>
+      </table>
+      <h3 style="margin-bottom:6px;">Alunos, Escolas, Cidades</h3>
+      <table>
+        <thead><tr><th>Método</th><th>Rota</th><th>Ação</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/alunos</code></td><td>Listar (?q=busca)</td></tr>
+          <tr><td><span class="badge badge-green">POST</span></td><td><code>/api/alunos</code></td><td>Criar aluno</td></tr>
+          <tr><td><span class="badge badge-gold">PUT</span></td><td><code>/api/alunos/{id}</code></td><td>Atualizar aluno</td></tr>
+          <tr><td><span class="badge badge-red">DELETE</span></td><td><code>/api/alunos/{id}</code></td><td>Remover aluno</td></tr>
+          <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/escolas</code></td><td>Listar com total de alunas</td></tr>
+          <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/escolas/simples</code></td><td>Lista simples (público)</td></tr>
+          <tr><td><span class="badge badge-green">POST</span></td><td><code>/api/escolas</code></td><td>Criar escola</td></tr>
+          <tr><td><span class="badge badge-gold">PUT</span></td><td><code>/api/escolas/{id}</code></td><td>Atualizar escola</td></tr>
+          <tr><td><span class="badge badge-red">DELETE</span></td><td><code>/api/escolas/{id}</code></td><td>Deletar escola</td></tr>
+          <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/cidades</code></td><td>Listar cidades (público)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Meninas Oyá v2 — Documentação Técnica</span><span>9 / 17</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 10 — REGRAS PROFESSORES -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">10</div>
+    <div><div class="slide-title">Regras de Negócio — Professores</div>
+    <div class="slide-subtitle">Fluxo de aprovação, validações e restrições de acesso</div></div>
+  </div>
+  <div class="cols-2" style="flex:1; gap:20px; align-items:start;">
+    <div>
+      <h3 style="margin-bottom:10px;">📋 Fluxo de Cadastro e Aprovação</h3>
+      <div style="background:#F9F7F5;border-radius:10px;padding:14px;">
+        <div class="flow" style="flex-direction:column; align-items:flex-start; gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;width:100%;">
+            <div class="flow-item" style="font-size:11px;padding:5px 12px;">1. Cadastro Público</div>
+            <span style="color:var(--steel);font-size:11px;"><code>POST /api/professores/cadastro</code></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;width:100%;">
+            <div class="flow-item" style="font-size:11px;padding:5px 12px;background:#0969DA;">2. Status: PENDENTE</div>
+            <span style="color:var(--steel);font-size:11px;">Professor NÃO consegue fazer login</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;width:100%;">
+            <div class="flow-item" style="font-size:11px;padding:5px 12px;background:var(--gold);">3. Admin Analisa</div>
+            <span style="color:var(--steel);font-size:11px;">Painel Admin → Aba "Pendentes"</span>
+          </div>
+          <div style="display:flex;gap:8px;width:100%;">
+            <div class="flow-item" style="font-size:11px;padding:5px 12px;background:#22863A;">✅ APROVADO</div>
+            <div class="flow-item" style="font-size:11px;padding:5px 12px;background:var(--ember);">❌ REJEITADO</div>
+          </div>
+          <div style="font-size:11px;color:var(--steel);">APROVADO → pode fazer login e publicar atividades<br>REJEITADO → login bloqueado com mensagem específica (403)</div>
+        </div>
+      </div>
+      <div class="card card-gold mt">
+        <strong>Admin cria diretamente:</strong> <code>POST /api/professores</code> (autenticado como ADMIN) → status já sai como <strong>APROVADO</strong>, sem passar pela fila de pendentes.
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px;">✅ Validações Obrigatórias</h3>
+      <div class="card" style="margin-bottom:8px;">
+        <strong>CPF Único</strong>
+        <p style="font-size:11.5px;">Antes de salvar, valida se o CPF já existe. CPF é normalizado: todos os caracteres não-numéricos são removidos (<code>replaceAll("\\D", "")</code>). Deve conter exatamente 11 dígitos.</p>
+      </div>
+      <div class="card card-blue" style="margin-bottom:8px;">
+        <strong>E-mail Único (como Username)</strong>
+        <p style="font-size:11.5px;">O e-mail é normalizado para minúsculas (<code>trim().toLowerCase()</code>) e usado diretamente como <code>username</code> no <code>Usuario</code>. Valida duplicidade tanto em <code>Professor</code> quanto em <code>Usuario</code>.</p>
+      </div>
+      <div class="card card-green" style="margin-bottom:8px;">
+        <strong>Autorização Granular</strong>
+        <p style="font-size:11.5px;">Para editar/deletar um professor, o sistema verifica: é ADMIN? Ou é o próprio professor? (<code>professorPodeGerenciar()</code>). Se não, lança <code>403 FORBIDDEN</code>.</p>
+      </div>
+      <div class="card card-gray">
+        <strong>Reset de Senha</strong>
+        <p style="font-size:11.5px;">Apenas ADMIN pode resetar senha de outro professor via <code>PATCH /api/professores/{id}/reset-senha</code>. A senha é re-hasheada com BCrypt antes de salvar.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Meninas Oyá v2 — Documentação Técnica</span><span>10 / 17</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 11 — REGRAS ATIVIDADES/ALUNOS/ESCOLAS -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">11</div>
+    <div><div class="slide-title">Regras de Negócio — Atividades, Alunos e Escolas</div>
+    <div class="slide-subtitle">Restrições e comportamentos importantes de cada módulo</div></div>
+  </div>
+  <div class="cols-3" style="flex:1; align-items:start; gap:14px;">
+    <div>
+      <h3 style="margin-bottom:10px;">📚 Atividades</h3>
+      <div class="card" style="margin-bottom:8px;">
+        <strong>Upload de Fotos</strong>
+        <p style="font-size:11.5px;">Aceita até 2 imagens por atividade (<code>foto</code> e <code>foto2</code>). Os bytes são armazenados diretamente no banco (<code>bytea</code> no PostgreSQL). O content-type é preservado para servir corretamente via <code>GET /atividades/{id}/foto</code>.</p>
+      </div>
+      <div class="card card-blue" style="margin-bottom:8px;">
+        <strong>Criação por Professor</strong>
+        <p style="font-size:11.5px;">O professor logado é associado automaticamente via <code>authentication.getName()</code> (subject do JWT). Não é possível criar atividade sem professor.</p>
+      </div>
+      <div class="card card-gray" style="margin-bottom:8px;">
+        <strong>Criação pelo Admin</strong>
+        <p style="font-size:11.5px;">Admin pode criar atividade para qualquer professor. Deve informar o <code>professorId</code> no form-data. Sem <code>professorId</code>, a criação pelo admin retorna <code>400 BAD_REQUEST</code>.</p>
+      </div>
+      <div class="card card-gold">
+        <strong>Edição/Exclusão</strong>
+        <p style="font-size:11.5px;">Professor só pode editar ou excluir suas próprias atividades. Tentativa de modificar atividade alheia retorna <code>403 FORBIDDEN</code>. Admin pode tudo.</p>
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px;">👧 Alunos</h3>
+      <div class="card" style="margin-bottom:8px;">
+        <strong>Vínculo por Tipo de Bolsa</strong>
+        <p style="font-size:11.5px;">Cada aluna tem um tipo de vínculo com o programa:</p>
+        <ul style="font-size:11px; margin-top:4px;">
+          <li><code>BOLSISTA_ADC</code> — Bolsa ADC</li>
+          <li><code>BOLSISTA_ICJ</code> — Bolsa ICJ</li>
+          <li><code>BOLSISTA_IC</code> — Iniciação Científica</li>
+          <li><code>VOLUNTARIA</code> — Voluntária</li>
+        </ul>
+      </div>
+      <div class="card card-green" style="margin-bottom:8px;">
+        <strong>Busca por Nome</strong>
+        <p style="font-size:11.5px;">O endpoint <code>GET /api/alunos?q=</code> filtra por nome contendo o termo (case-insensitive) usando <code>findByNomeContainingIgnoreCase</code>.</p>
+      </div>
+      <div class="card card-blue">
+        <strong>Associação a Escola</strong>
+        <p style="font-size:11.5px;">A escola é opcional no cadastro de aluno. Se informada, o repositório valida que a escola existe (<code>400</code> se não encontrada). A cidade também é opcional.</p>
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px;">🏫 Escolas</h3>
+      <div class="card" style="margin-bottom:8px;">
+        <strong>Bloqueio de Exclusão</strong>
+        <p style="font-size:11.5px;">Escola não pode ser excluída se houver alunas vinculadas. O sistema conta com <code>alunoRepository.countByEscola_Id()</code> e retorna <code>409 CONFLICT</code> com mensagem: <em>"Não é possível excluir: esta escola possui X aluna(s) vinculada(s)."</em></p>
+      </div>
+      <div class="card card-gold" style="margin-bottom:8px;">
+        <strong>Contagem de Alunas</strong>
+        <p style="font-size:11.5px;">O endpoint <code>GET /api/escolas</code> retorna um <code>EscolaResponse</code> (DTO) que inclui o campo <code>totalAlunos</code> calculado em tempo real.</p>
+      </div>
+      <div class="card card-gray">
+        <strong>Classificações</strong>
+        <p style="font-size:11.5px;">Cada escola pode ser classificada por:</p>
+        <ul style="font-size:11px; margin-top:4px;">
+          <li><strong>Tipo:</strong> ESCOLA_PUBLICA, ESCOLA_PRIVADA, UNIVERSIDADE, INSTITUTO</li>
+          <li><strong>Nível:</strong> EDUCACAO_BASICA, ENSINO_SUPERIOR</li>
+          <li><strong>Natureza:</strong> PUBLICA, PRIVADA, COMUNITARIA</li>
+          <li><strong>Esfera:</strong> MUNICIPAL, ESTADUAL, FEDERAL, OUTRO</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Meninas Oyá v2 — Documentação Técnica</span><span>11 / 17</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 12 — FRONTEND ARQUITETURA -->
+<div class="slide slide-dark">
+  <div class="slide-header">
+    <div class="slide-num">12</div>
+    <div><div class="slide-title">Frontend — Arquitetura Vue 3</div>
+    <div class="slide-subtitle">Organização de componentes, roteamento e comunicação com a API</div></div>
+  </div>
+  <div class="cols-2" style="flex:1; gap:20px; align-items:start;">
+    <div>
+      <h3 style="margin-bottom:10px;">📁 Estrutura de Arquivos</h3>
+      <div class="code-block">
+src/
+├── <span class="fn">main.js</span>           <span class="cmt"># Bootstrap Vue + Router</span>
+├── <span class="fn">App.vue</span>           <span class="cmt"># Root component</span>
+├── <span class="fn">router/</span>
+│   └── <span class="fn">index.js</span>      <span class="cmt"># Rotas + Navigation Guard</span>
+├── <span class="fn">service/</span>
+│   └── <span class="fn">api.js</span>        <span class="cmt"># Axios + interceptors</span>
+├── <span class="fn">views/</span>            <span class="cmt"># Páginas (rotas)</span>
+│   ├── HomeView.vue
+│   ├── Login.vue
+│   ├── Cadastro.vue
+│   ├── Painel.vue        <span class="cmt"># Painel professor</span>
+│   ├── PainelAdmin.vue   <span class="cmt"># Painel admin</span>
+│   ├── AtividadeLista.vue
+│   ├── AtividadeDetalhe.vue
+│   ├── Parceria.vue
+│   └── Coordenacao.vue
+└── <span class="fn">components/</span>       <span class="cmt"># Componentes reutilizáveis</span>
+    ├── PainelShell.vue   <span class="cmt"># Layout dos paineis</span>
+    ├── AppButton.vue
+    ├── AppInput.vue
+    ├── AppSelect.vue
+    └── CidadeSelect.vue  <span class="cmt"># Autocomplete cidades</span>
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px;">⚙️ Configuração do Axios (api.js)</h3>
+      <div class="code-block" style="margin-bottom:14px;">
+<span class="kw">const</span> api = axios.<span class="fn">create</span>({
+  baseURL: <span class="str">"http://localhost:8080"</span>
+});
+
+<span class="cmt">// Injeta Bearer token em toda requisição</span>
+api.interceptors.request.<span class="fn">use</span>((config) => {
+  <span class="kw">const</span> token = localStorage.<span class="fn">getItem</span>(<span class="str">"token"</span>);
+  <span class="kw">if</span> (token)
+    config.headers.Authorization = <span class="str">`Bearer ${token}`</span>;
+  <span class="kw">return</span> config;
+});
+
+<span class="cmt">// Em 401: limpa localStorage (força re-login)</span>
+api.interceptors.response.<span class="fn">use</span>(
+  res => res,
+  err => {
+    <span class="kw">if</span> (err.response?.status === <span class="val">401</span>) {
+      localStorage.<span class="fn">removeItem</span>(<span class="str">"token"</span>);
+      localStorage.<span class="fn">removeItem</span>(<span class="str">"logado"</span>);
+    }
+    <span class="kw">return</span> Promise.<span class="fn">reject</span>(err);
+  }
+);
+      </div>
+      <div class="card-dark">
+        <h3>Navigation Guard</h3>
+        <p>Antes de cada rota, o router verifica <code>localStorage.getItem("logado")</code>. Se <code>/painel</code> ou <code>/painel-admin</code> forem acessadas sem autenticação, redireciona para <code>/admin</code> (login).</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Meninas Oyá v2 — Documentação Técnica</span><span>12 / 17</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 13 — ROTAS FRONTEND -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">13</div>
+    <div><div class="slide-title">Frontend — Rotas e Páginas</div>
+    <div class="slide-subtitle">Mapeamento de URLs para views e controle de acesso no frontend</div></div>
+  </div>
+  <div style="flex:1; display:flex; flex-direction:column; gap:14px;">
+    <table>
+      <thead><tr><th>Rota</th><th>Componente</th><th>Acesso</th><th>Descrição</th></tr></thead>
+      <tbody>
+        <tr><td><code>/</code></td><td>HomeView.vue</td><td><span class="badge badge-gray">Público</span></td><td>Página inicial do programa Meninas Oyá</td></tr>
+        <tr><td><code>/admin</code></td><td>Login.vue</td><td><span class="badge badge-gray">Público</span></td><td>Tela de login (email + senha). Decodifica JWT para redirecionar por role.</td></tr>
+        <tr><td><code>/cadastro</code></td><td>Cadastro.vue</td><td><span class="badge badge-gray">Público</span></td><td>Auto-cadastro de professor. Envia dados para <code>POST /api/professores/cadastro</code>.</td></tr>
+        <tr><td><code>/painel</code></td><td>Painel.vue</td><td><span class="badge badge-blue">PROFESSOR</span></td><td>Dashboard do professor: atividades, perfil, alunos. Guard: redireciona se não logado.</td></tr>
+        <tr><td><code>/painel-admin</code></td><td>PainelAdmin.vue</td><td><span class="badge badge-red">ADMIN</span></td><td>Painel administrativo completo. Guard: redireciona se não logado.</td></tr>
+        <tr><td><code>/atividades</code></td><td>AtividadeLista.vue</td><td><span class="badge badge-gray">Público</span></td><td>Lista pública de atividades com filtros por UF e cidade.</td></tr>
+        <tr><td><code>/atividade/:id</code></td><td>AtividadeDetalhe.vue</td><td><span class="badge badge-gray">Público</span></td><td>Detalhe de uma atividade específica com fotos e informações.</td></tr>
+        <tr><td><code>/parceria</code></td><td>Parceria.vue</td><td><span class="badge badge-gray">Público</span></td><td>Página institucional sobre parcerias do programa.</td></tr>
+        <tr><td><code>/coordenacao</code></td><td>Coordenacao.vue</td><td><span class="badge badge-gray">Público</span></td><td>Página da coordenação do programa.</td></tr>
+      </tbody>
+    </table>
+    <div class="cols-3" style="gap:12px;">
+      <div class="card">
+        <h3>🔐 Navigation Guard</h3>
+        <p style="font-size:11.5px;"><code>router.beforeEach()</code> verifica <code>logado === "true"</code> no localStorage. Rotas <code>/painel</code> e <code>/painel-admin</code> exigem estar logado.</p>
+      </div>
+      <div class="card card-blue">
+        <h3>💾 Estado de Sessão</h3>
+        <p style="font-size:11.5px;">Três itens no <code>localStorage</code>: <code>"token"</code> (JWT), <code>"logado"</code> ("true"), <code>"usuario"</code> (JSON com username).</p>
+      </div>
+      <div class="card card-gold">
+        <h3>🚪 Logout</h3>
+        <p style="font-size:11.5px;">Remove os 3 itens do <code>localStorage</code> e redireciona para <code>/admin</code> (tela de login).</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Meninas Oyá v2 — Documentação Técnica</span><span>13 / 17</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 14 — PAINEL PROFESSOR -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">14</div>
+    <div><div class="slide-title">Painel do Professor — Funcionalidades</div>
+    <div class="slide-subtitle">Visão detalhada da view Painel.vue e suas abas</div></div>
+  </div>
+  <div class="cols-2" style="flex:1; gap:20px; align-items:start;">
+    <div>
+      <h3 style="margin-bottom:10px;">📊 Aba Dashboard</h3>
+      <div class="card" style="margin-bottom:8px;">
+        Exibe em tempo real (via <code>Promise.all</code> em <code>mounted()</code>):
+        <ul style="margin-top:6px; font-size:11.5px;">
+          <li><strong>Status do Cadastro</strong> — badge colorido: APROVADO (verde) / PENDENTE (ouro) / REJEITADO (vermelho)</li>
+          <li><strong>Total de Atividades Publicadas</strong></li>
+          <li><strong>Identificação</strong> — nome, e-mail, escola, UF</li>
+          <li><strong>Link do Currículo Lattes</strong></li>
+        </ul>
+      </div>
+      <h3 style="margin-bottom:10px;">✏️ Aba Atividades</h3>
+      <div class="card card-blue" style="margin-bottom:8px;">
+        <strong>Lista das minhas atividades</strong> — tabela com título, data e ações (editar / excluir).
+      </div>
+      <div class="card card-blue">
+        <strong>Nova Atividade</strong> — formulário com:
+        <ul style="font-size:11px; margin-top:4px;">
+          <li>Título, Data, Descrição</li>
+          <li>Localização (opcional, via checkbox)</li>
+          <li>Upload de Imagem 1 e Imagem 2 (opcional)</li>
+          <li>Submete via <code>multipart/form-data</code></li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px;">👤 Aba Meu Perfil</h3>
+      <div class="card card-green" style="margin-bottom:8px;">
+        Formulário de edição do perfil:
+        <ul style="font-size:11px; margin-top:4px;">
+          <li>Nome, UF, E-mail, Escola/Instituição</li>
+          <li>Nova Senha (opcional)</li>
+          <li>Período de Vigência (início e fim)</li>
+          <li>Link do Currículo Lattes</li>
+        </ul>
+        Envia via <code>PUT /api/professores/{id}</code> com JSON. Senha só é enviada se preenchida.
+      </div>
+      <h3 style="margin-bottom:10px;">👧 Aba Meus Alunos</h3>
+      <div class="card card-gold" style="margin-bottom:8px;">
+        <strong>Lista de alunas</strong> — tabela com nome, vínculo, instituição e botão de remover.
+      </div>
+      <div class="card card-gold">
+        <strong>Cadastrar Aluna</strong> — formulário colapsável com:
+        <ul style="font-size:11px; margin-top:4px;">
+          <li>Nome do aluno</li>
+          <li>Seleção de Instituição (dropdown)</li>
+          <li>Tipo de vínculo: Bolsista ADC, ICJ, IC, Voluntária</li>
+        </ul>
+      </div>
+      <div class="card card-gray" style="margin-top:8px;">
+        <strong>Modal de Edição de Atividade</strong> — ao clicar em editar, abre modal com todos os campos preenchidos. Atualiza via <code>PUT /atividades/{id}</code> com multipart.
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Meninas Oyá v2 — Documentação Técnica</span><span>14 / 17</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 15 — PAINEL ADMIN -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">15</div>
+    <div><div class="slide-title">Painel Administrativo — Funcionalidades</div>
+    <div class="slide-subtitle">Visão detalhada da view PainelAdmin.vue e suas abas</div></div>
+  </div>
+  <div class="cols-2" style="flex:1; gap:16px; align-items:start;">
+    <div>
+      <h3 style="margin-bottom:8px;">⏳ Aba Pendentes <span class="badge badge-red">badge de contagem</span></h3>
+      <div class="card" style="margin-bottom:10px;">
+        Lista professores aguardando aprovação com todos os dados: nome, email, CPF formatado, cidade/UF, escola, idade, link Lattes. Ações: <strong>Aprovar</strong> ou <strong>Rejeitar</strong> (botões visuais distintos).
+      </div>
+      <h3 style="margin-bottom:8px;">📚 Aba Atividades</h3>
+      <div class="card card-blue" style="margin-bottom:10px;">
+        Tabela completa de todas as atividades com nome do professor. Admin pode <strong>criar atividade em nome de qualquer professor</strong> (seleciona via dropdown). Pode editar e excluir qualquer atividade. Modal de edição com upload de imagens.
+      </div>
+      <h3 style="margin-bottom:8px;">👧 Aba Alunos</h3>
+      <div class="card card-green">
+        Listagem global de alunas (todas as escolas). Formulário de cadastro com nome, idade, cidade (via <code>CidadeSelect</code>) e instituição. Pode excluir qualquer aluna.
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:8px;">👩‍🏫 Aba Professores</h3>
+      <div class="card card-gold" style="margin-bottom:10px;">
+        Tabela com email, nome, CPF, UF, instituição, status (badge colorido). Ações:
+        <ul style="font-size:11px; margin-top:6px;">
+          <li>✏️ <strong>Editar</strong> — abre modal com campos nome, email, idade, cidade, escola, Lattes</li>
+          <li>🔒 <strong>Resetar Senha</strong> — modal para nova senha (só ADMIN)</li>
+          <li>🗑️ <strong>Excluir</strong> — remove professor e o usuário associado</li>
+        </ul>
+      </div>
+      <h3 style="margin-bottom:8px;">🏫 Aba Escolas</h3>
+      <div class="card" style="margin-bottom:10px;">
+        Tabela com nome, tipo, cidade, <strong>total de alunas vinculadas</strong>. Formulário de cadastro com:
+        <ul style="font-size:11px; margin-top:4px;">
+          <li>Nome, Tipo (4 opções)</li>
+          <li>Cidade (autocomplete via CidadeSelect)</li>
+          <li>E-mail de contato</li>
+          <li>Nível Educacional (radio)</li>
+          <li>Natureza (radio: Pública/Privada/Comunitária)</li>
+          <li>Esfera Administrativa (radio: Municipal/Estadual/Federal/Outro)</li>
+        </ul>
+        Escola com alunas não pode ser excluída (mensagem de erro).
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Meninas Oyá v2 — Documentação Técnica</span><span>15 / 17</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 16 — CONFIG SEGURANÇA -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">16</div>
+    <div><div class="slide-title">Configurações de Segurança e Inicialização</div>
+    <div class="slide-subtitle">CORS, AdminUserConfig, TokenConfig e detalhes de implementação</div></div>
+  </div>
+  <div class="cols-2" style="flex:1; gap:20px; align-items:start;">
+    <div>
+      <h3 style="margin-bottom:10px;">🌍 CORS — CorsConfig.java</h3>
+      <div class="card" style="margin-bottom:12px;">
+        <p>Configuração de Cross-Origin Resource Sharing para permitir requisições do frontend Vue. Definida como bean separado, permite que o Spring Security aplique via <code>.cors(Customizer.withDefaults())</code>.</p>
+      </div>
+      <h3 style="margin-bottom:10px;">👑 AdminUserConfig.java</h3>
+      <div class="card card-red" style="border-left-color:var(--ember);margin-bottom:8px;">
+        <p style="margin-bottom:6px;"><strong>Executa a cada startup</strong> (<code>CommandLineRunner</code>):</p>
+        <ul style="font-size:11.5px;">
+          <li>Lê as variáveis <code>${admin.username}</code> e <code>${admin.password}</code></li>
+          <li>Se o usuário admin não existe → <strong>cria</strong> com role ROLE_ADMIN</li>
+          <li>Se já existe → <strong>atualiza</strong> username, senha (re-hasheia BCrypt) e role</li>
+          <li>Garante que o admin sempre existe e a senha está atualizada</li>
+        </ul>
+      </div>
+      <div class="card card-gold">
+        <strong>⚠️ Atenção:</strong> A senha do admin deve ser definida via variável de ambiente ou <code>application.properties</code>. Nunca hardcode em código-fonte.
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px;">🎟️ TokenConfig.java</h3>
+      <div class="card card-blue" style="margin-bottom:12px;">
+        <ul style="font-size:11.5px;">
+          <li><code>jwt.issuer</code> — identidade do emissor do token (padrão: "meninas-api")</li>
+          <li><code>jwt.expires-in</code> — tempo de expiração em segundos (padrão: 3600 = 1h)</li>
+        </ul>
+      </div>
+      <h3 style="margin-bottom:10px;">🔑 JwtAuthenticationConverter</h3>
+      <div class="card" style="margin-bottom:12px;">
+        <p style="margin-bottom:6px;">Converte o campo <code>authorities</code> do JWT em <code>GrantedAuthority</code>:</p>
+        <ul style="font-size:11.5px;">
+          <li>Lê a string <code>"SCOPE_ADMIN"</code> ou <code>"SCOPE_PROFESSOR"</code> do claim</li>
+          <li>Separa por espaço (permite múltiplos roles)</li>
+          <li>Mapeia para <code>SimpleGrantedAuthority</code></li>
+          <li>O <code>@PreAuthorize("hasAuthority('SCOPE_ADMIN')")</code> usa esse mapeamento</li>
+        </ul>
+      </div>
+      <h3 style="margin-bottom:10px;">🔐 Detalhes do Gerador de Token</h3>
+      <div class="card card-green">
+        <ul style="font-size:11.5px;">
+          <li>Roles são convertidas: <code>ROLE_ADMIN</code> → <code>SCOPE_ADMIN</code></li>
+          <li>Token válido por <strong>3600 segundos</strong> (1 hora)</li>
+          <li>Issuer: <code>"Meninas"</code></li>
+          <li>Subject: <code>usuario.getUsername()</code> (email normalizado)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Meninas Oyá v2 — Documentação Técnica</span><span>16 / 17</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 17 — SUMÁRIO / MELHORIAS -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">17</div>
+    <div><div class="slide-title">Pontos de Atenção e Melhorias Sugeridas</div>
+    <div class="slide-subtitle">Observações técnicas relevantes para evolução do sistema</div></div>
+  </div>
+  <div class="cols-2" style="flex:1; gap:20px; align-items:start;">
+    <div>
+      <h3 style="margin-bottom:10px;">⚠️ Pontos de Atenção</h3>
+      <div class="card" style="margin-bottom:8px;">
+        <strong><span class="status-dot dot-red"></span>Token no localStorage</strong>
+        <p style="font-size:11.5px;">O JWT é armazenado no <code>localStorage</code>, que é vulnerável a ataques XSS. Em produção, considerar uso de <strong>HttpOnly cookies</strong> para armazenar o token.</p>
+      </div>
+      <div class="card" style="margin-bottom:8px;">
+        <strong><span class="status-dot dot-red"></span>Fotos no Banco de Dados</strong>
+        <p style="font-size:11.5px;">Imagens são armazenadas como <code>bytea</code> no PostgreSQL. Para volumes maiores, recomenda-se migrar para storage externo (S3, MinIO, etc.).</p>
+      </div>
+      <div class="card" style="margin-bottom:8px;">
+        <strong><span class="status-dot dot-gold"></span>Sem Refresh Token</strong>
+        <p style="font-size:11.5px;">O sistema usa apenas access token (1h). Após expirar, o usuário é deslogado (interceptor 401). Implementar refresh token melhoraria a UX.</p>
+      </div>
+      <div class="card">
+        <strong><span class="status-dot dot-gold"></span>Sem Paginação</strong>
+        <p style="font-size:11.5px;">Os endpoints de listagem retornam todos os registros sem paginação. Para escala, adicionar <code>Pageable</code> no Spring Data.</p>
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px;">🚀 Melhorias Sugeridas</h3>
+      <div class="card card-green" style="margin-bottom:8px;">
+        <strong><span class="status-dot dot-green"></span>Notificação por E-mail</strong>
+        <p style="font-size:11.5px;">Enviar e-mail automático quando professor é aprovado ou rejeitado (Spring Mail / SendGrid).</p>
+      </div>
+      <div class="card card-blue" style="margin-bottom:8px;">
+        <strong><span class="status-dot dot-green"></span>Recuperação de Senha</strong>
+        <p style="font-size:11.5px;">Implementar fluxo de "Esqueci minha senha" com token temporário enviado por e-mail.</p>
+      </div>
+      <div class="card card-gold" style="margin-bottom:8px;">
+        <strong><span class="status-dot dot-green"></span>Paginação e Filtros</strong>
+        <p style="font-size:11.5px;">Adicionar paginação (<code>Pageable</code>) e filtros compostos nos endpoints de listagem.</p>
+      </div>
+      <div class="card card-gray" style="margin-bottom:8px;">
+        <strong><span class="status-dot dot-gold"></span>Swagger / OpenAPI</strong>
+        <p style="font-size:11.5px;">Documentação interativa da API com SpringDoc OpenAPI 3 (<code>springdoc-openapi-starter-webmvc-ui</code>).</p>
+      </div>
+      <div class="card card-gray">
+        <strong><span class="status-dot dot-gold"></span>Testes Automatizados</strong>
+        <p style="font-size:11.5px;">Adicionar testes unitários nos Services e testes de integração nos Controllers com <code>MockMvc</code> e <code>@SpringBootTest</code>.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot">
+    <span>Meninas Oyá v2 — Documentação Técnica</span>
+    <span style="color:var(--ember); font-weight:600;">FIM DA DOCUMENTAÇÃO</span>
+    <span>17 / 17</span>
+  </div>
+</div>
+
+</body>
+</html>

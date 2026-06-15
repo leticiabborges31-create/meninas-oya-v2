@@ -1,0 +1,66 @@
+/* ── MENINAS OYÁ — Design Tokens ─────────────────────── */
+:root {
+  /* Verde — Primário */
+  --oya-forest: #1A3A2A;
+  --oya-deep:   #0F2218;
+  --oya-sage:   #2C5240;
+  --oya-mist:   #4A7A62;
+  --oya-fern:   #6BAA8A;
+  --oya-mint:   #A8D5C0;
+
+  /* Laranja — Acento */
+  --oya-ember:  #D94F1E;
+  --oya-flame:  #F06030;
+  --oya-glow:   #FF8555;
+  --oya-warm:   #FFB08A;
+
+  /* Neutros */
+  --oya-cream:  #F0EDE8;
+  --oya-sand:   #F5EDE5;
+  --oya-char:   #1C1C1A;
+  --oya-stone:  #3A3A38;
+  --oya-steel:  #6E6E6A;
+  --oya-silver: #A8A8A4;
+  --oya-fog:    #E8E8E4;
+  --oya-bg:     #F8F7F4;
+
+  /* Tipografia */
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body:    'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Espaçamento */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+
+  /* Borda */
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   20px;
+  --radius-pill: 50px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--oya-char);
+  background: var(--oya-bg);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img { max-width: 100%; display: block; }
+a   { text-decoration: none; }

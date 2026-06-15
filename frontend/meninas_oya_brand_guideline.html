@@ -1,0 +1,396 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --oya-forest: #1A3A2A;
+    --oya-deep: #0F2218;
+    --oya-sage: #2C5240;
+    --oya-mist: #4A7A62;
+    --oya-fern: #6BAA8A;
+    --oya-mint: #A8D5C0;
+    --oya-cream: #F0EDE8;
+    --oya-ember: #D94F1E;
+    --oya-flame: #F06030;
+    --oya-glow: #FF8555;
+    --oya-warm: #FFB08A;
+    --oya-sand: #F5EDE5;
+    --oya-char: #1C1C1A;
+    --oya-stone: #3A3A38;
+    --oya-steel: #6E6E6A;
+    --oya-silver: #A8A8A4;
+    --oya-fog: #E8E8E4;
+  }
+
+  body { font-family: 'DM Sans', sans-serif; background: #F8F7F4; color: var(--oya-char); }
+
+  .page { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .brand-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 3rem; }
+  .brand-mark {
+    width: 48px; height: 48px; background: var(--oya-ember);
+    border-radius: 14px; display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif; color: #fff; font-size: 18px; letter-spacing: -0.5px;
+  }
+  .brand-name { font-size: 20px; font-weight: 500; color: var(--oya-forest); letter-spacing: -0.3px; }
+  .brand-tagline { font-size: 12px; color: var(--oya-steel); letter-spacing: 0.5px; text-transform: uppercase; margin-top: 1px; }
+
+  .section { margin-bottom: 3.5rem; }
+  .section-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--oya-ember); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 0.5px; background: var(--oya-fog); }
+
+  .section-title { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--oya-forest); margin-bottom: 0.5rem; line-height: 1.2; }
+
+  /* COLOR SECTION */
+  .color-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+  .color-card { border-radius: 16px; overflow: hidden; border: 0.5px solid rgba(0,0,0,0.07); }
+  .color-swatch { height: 80px; }
+  .color-info { padding: 10px 12px; background: #fff; }
+  .color-name { font-size: 12px; font-weight: 500; color: var(--oya-char); }
+  .color-hex { font-size: 11px; color: var(--oya-steel); font-family: 'DM Sans', monospace; letter-spacing: 0.3px; }
+
+  .color-row { display: flex; border-radius: 12px; overflow: hidden; margin-bottom: 8px; height: 44px; }
+  .color-stop { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 500; }
+
+  /* TYPOGRAPHY */
+  .type-showcase { background: #fff; border-radius: 20px; padding: 2rem; border: 0.5px solid var(--oya-fog); }
+  .type-item { padding: 1.25rem 0; border-bottom: 0.5px solid var(--oya-fog); }
+  .type-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .type-meta { font-size: 10px; color: var(--oya-silver); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+
+  /* COMPONENTS */
+  .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .comp-card { background: #fff; border-radius: 20px; padding: 1.5rem; border: 0.5px solid var(--oya-fog); }
+  .comp-title { font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--oya-steel); margin-bottom: 1rem; }
+
+  .btn-primary {
+    background: var(--oya-ember); color: #fff; border: none;
+    padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 500;
+    font-family: 'DM Sans', sans-serif; cursor: pointer; letter-spacing: 0.2px;
+    display: inline-block; margin-bottom: 8px; margin-right: 8px;
+  }
+  .btn-secondary {
+    background: transparent; color: var(--oya-forest); border: 1.5px solid var(--oya-forest);
+    padding: 11px 24px; border-radius: 50px; font-size: 14px; font-weight: 500;
+    font-family: 'DM Sans', sans-serif; cursor: pointer; letter-spacing: 0.2px;
+    display: inline-block; margin-bottom: 8px; margin-right: 8px;
+  }
+  .btn-ghost {
+    background: transparent; color: var(--oya-ember); border: 1.5px solid var(--oya-glow);
+    padding: 11px 24px; border-radius: 50px; font-size: 14px; font-weight: 500;
+    font-family: 'DM Sans', sans-serif; cursor: pointer; letter-spacing: 0.2px;
+    display: inline-block;
+  }
+  .badge {
+    display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 500; margin-right: 6px; margin-bottom: 6px;
+  }
+  .badge-green { background: #E8F5EE; color: var(--oya-sage); }
+  .badge-orange { background: #FFF0EA; color: var(--oya-ember); }
+  .badge-neutral { background: var(--oya-fog); color: var(--oya-stone); }
+
+  /* INPUT */
+  .input-demo { width: 100%; border: 1.5px solid var(--oya-fog); border-radius: 12px; padding: 11px 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--oya-char); outline: none; background: #FAFAF8; margin-bottom: 8px; }
+  .input-label { font-size: 12px; font-weight: 500; color: var(--oya-stone); margin-bottom: 4px; }
+
+  /* ADMIN PANEL PREVIEW */
+  .admin-preview {
+    background: var(--oya-forest); border-radius: 24px; padding: 20px; border: 0.5px solid var(--oya-sage);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .admin-title { color: var(--oya-mint); font-size: 13px; font-weight: 500; letter-spacing: 0.3px; }
+  .admin-nav { display: flex; gap: 4px; margin-bottom: 16px; }
+  .admin-nav-item {
+    padding: 7px 14px; border-radius: 50px; font-size: 12px; cursor: pointer;
+  }
+  .admin-nav-item.active { background: var(--oya-ember); color: #fff; font-weight: 500; }
+  .admin-nav-item:not(.active) { color: var(--oya-mint); }
+  .admin-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+  .admin-stat { background: var(--oya-sage); border-radius: 14px; padding: 12px 14px; }
+  .admin-stat-val { color: var(--oya-warm); font-size: 22px; font-weight: 500; line-height: 1; }
+  .admin-stat-label { color: var(--oya-fern); font-size: 10px; margin-top: 4px; }
+  .admin-row { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+  .admin-row-name { color: var(--oya-cream); font-size: 12px; }
+  .admin-row-badge { background: var(--oya-ember); color: #fff; font-size: 10px; padding: 3px 9px; border-radius: 50px; font-weight: 500; }
+  .admin-row-badge.green { background: var(--oya-mist); }
+
+  /* BLOG CARD */
+  .blog-card { background: #fff; border-radius: 20px; overflow: hidden; border: 0.5px solid var(--oya-fog); }
+  .blog-card-img { height: 120px; background: linear-gradient(135deg, var(--oya-forest) 0%, var(--oya-sage) 100%); position: relative; display: flex; align-items: flex-end; padding: 12px; }
+  .blog-card-cat { background: var(--oya-ember); color: #fff; font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 50px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .blog-card-body { padding: 14px; }
+  .blog-card-title { font-family: 'DM Serif Display', serif; font-size: 15px; color: var(--oya-forest); line-height: 1.3; margin-bottom: 6px; }
+  .blog-card-meta { font-size: 11px; color: var(--oya-silver); }
+
+  /* SIDEBAR NAV */
+  .sidebar { background: #fff; border-radius: 20px; border: 0.5px solid var(--oya-fog); padding: 16px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 10px; font-size: 13px; margin-bottom: 2px; color: var(--oya-stone); }
+  .nav-item.active { background: #FFF0EA; color: var(--oya-ember); font-weight: 500; }
+  .nav-item i { font-size: 16px; }
+
+  /* SPACING SCALE */
+  .spacing-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .spacing-block { background: var(--oya-ember); border-radius: 4px; height: 20px; flex-shrink: 0; }
+  .spacing-label { font-size: 12px; color: var(--oya-stone); font-family: monospace; }
+
+  /* HERO MINI */
+  .hero-mini { background: var(--oya-deep); border-radius: 24px; padding: 28px 24px; margin-bottom: 16px; position: relative; overflow: hidden; }
+  .hero-mini::before { content: ''; position: absolute; right: -20px; top: -20px; width: 160px; height: 160px; border-radius: 50%; background: rgba(217,79,30,0.12); }
+  .hero-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--oya-glow); margin-bottom: 12px; font-weight: 500; }
+  .hero-heading { font-family: 'DM Serif Display', serif; color: #fff; font-size: 28px; line-height: 1.1; margin-bottom: 8px; }
+  .hero-heading em { color: var(--oya-glow); font-style: italic; }
+  .hero-sub { font-size: 13px; color: var(--oya-fern); line-height: 1.5; }
+
+  .divider { height: 0.5px; background: var(--oya-fog); margin: 2.5rem 0; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+</style>
+
+<div class="page">
+  <h2 class="sr-only">Meninas Oyá Brand Guideline — visual design system reference</h2>
+
+  <div class="brand-logo">
+    <div class="brand-mark">MO</div>
+    <div>
+      <div class="brand-name">Meninas Oyá</div>
+      <div class="brand-tagline">Rede de apoio e protagonismo</div>
+    </div>
+  </div>
+
+  <!-- HERO MINI -->
+  <div class="section">
+    <div class="section-label">Identidade visual</div>
+    <div class="hero-mini">
+      <div class="hero-label">Rede de apoio e protagonismo</div>
+      <div class="hero-heading">Inspire, <em>Empodere</em><br>e Transforme</div>
+      <div class="hero-sub">O projeto Meninas Oyá incentiva meninas e mulheres nas áreas de Computação, Engenharia e Ciências Exatas.</div>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <div class="section">
+    <div class="section-label">Paleta de cores</div>
+
+    <div style="margin-bottom: 1.5rem;">
+      <div style="font-size: 12px; color: var(--oya-steel); margin-bottom: 8px; font-weight: 500;">Verde — Primário</div>
+      <div class="color-row">
+        <div class="color-stop" style="background: #E8F5EE; color: #2C5240;">50</div>
+        <div class="color-stop" style="background: #A8D5C0; color: #0F2218;">200</div>
+        <div class="color-stop" style="background: #6BAA8A; color: #0F2218;">400</div>
+        <div class="color-stop" style="background: #4A7A62; color: #E8F5EE;">500</div>
+        <div class="color-stop" style="background: #2C5240; color: #A8D5C0;">600</div>
+        <div class="color-stop" style="background: #1A3A2A; color: #A8D5C0;">800</div>
+        <div class="color-stop" style="background: #0F2218; color: #6BAA8A;">900</div>
+      </div>
+    </div>
+    <div style="margin-bottom: 1.5rem;">
+      <div style="font-size: 12px; color: var(--oya-steel); margin-bottom: 8px; font-weight: 500;">Laranja — Acento</div>
+      <div class="color-row">
+        <div class="color-stop" style="background: #FFF0EA; color: #D94F1E;">50</div>
+        <div class="color-stop" style="background: #FFB08A; color: #993C1D;">200</div>
+        <div class="color-stop" style="background: #FF8555; color: #993C1D;">400</div>
+        <div class="color-stop" style="background: #F06030; color: #FFF0EA;">500</div>
+        <div class="color-stop" style="background: #D94F1E; color: #FFB08A;">600</div>
+        <div class="color-stop" style="background: #993C1D; color: #FFB08A;">800</div>
+        <div class="color-stop" style="background: #6B2610; color: #FF8555;">900</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size: 12px; color: var(--oya-steel); margin-bottom: 8px; font-weight: 500;">Neutros</div>
+      <div class="color-row">
+        <div class="color-stop" style="background: #F8F7F4; color: #6E6E6A;">Bg</div>
+        <div class="color-stop" style="background: #E8E8E4; color: #3A3A38;">Fog</div>
+        <div class="color-stop" style="background: #A8A8A4; color: #1C1C1A;">Silver</div>
+        <div class="color-stop" style="background: #6E6E6A; color: #F8F7F4;">Steel</div>
+        <div class="color-stop" style="background: #3A3A38; color: #E8E8E4;">Stone</div>
+        <div class="color-stop" style="background: #1C1C1A; color: #A8A8A4;">Char</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="section">
+    <div class="section-label">Tipografia</div>
+    <div class="type-showcase">
+      <div class="type-item">
+        <div class="type-meta">Display — DM Serif Display · 40px · Regular</div>
+        <div style="font-family: 'DM Serif Display', serif; font-size: 40px; color: var(--oya-forest); line-height: 1.1;">Meninas Oyá</div>
+      </div>
+      <div class="type-item">
+        <div class="type-meta">Heading 1 — DM Serif Display · 28px · Italic</div>
+        <div style="font-family: 'DM Serif Display', serif; font-size: 28px; font-style: italic; color: var(--oya-ember); line-height: 1.2;">Inspire, Empodere e Transforme</div>
+      </div>
+      <div class="type-item">
+        <div class="type-meta">Heading 2 — DM Sans · 20px · 500</div>
+        <div style="font-family: 'DM Sans', sans-serif; font-size: 20px; font-weight: 500; color: var(--oya-forest);">Rede de apoio e protagonismo</div>
+      </div>
+      <div class="type-item">
+        <div class="type-meta">Body — DM Sans · 15px · 400 · 1.7 line-height</div>
+        <div style="font-size: 15px; color: var(--oya-stone); line-height: 1.7;">O projeto incentiva meninas e mulheres nas áreas de Computação, Engenharia e Ciências Exatas por todo o Brasil.</div>
+      </div>
+      <div class="type-item">
+        <div class="type-meta">Caption — DM Sans · 11px · 500 · 2px tracking · uppercase</div>
+        <div style="font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--oya-ember);">Atividades · Coordenação · Parceria</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPONENTS -->
+  <div class="section">
+    <div class="section-label">Componentes</div>
+    <div class="comp-grid">
+
+      <!-- Buttons -->
+      <div class="comp-card">
+        <div class="comp-title">Botões</div>
+        <div class="btn-primary">Conheça o projeto</div>
+        <div class="btn-secondary">Ver atividades</div>
+        <div class="btn-ghost">Saiba mais</div>
+      </div>
+
+      <!-- Badges -->
+      <div class="comp-card">
+        <div class="comp-title">Badges & Status</div>
+        <span class="badge badge-green">Ativo</span>
+        <span class="badge badge-orange">Destaque</span>
+        <span class="badge badge-neutral">Rascunho</span>
+        <span class="badge badge-orange">+500 mulheres</span>
+        <span class="badge badge-green">Publicado</span>
+      </div>
+
+      <!-- Inputs -->
+      <div class="comp-card">
+        <div class="comp-title">Campos de formulário</div>
+        <div class="input-label">Nome completo</div>
+        <input class="input-demo" type="text" placeholder="Maria Silva" />
+        <div class="input-label">E-mail</div>
+        <input class="input-demo" type="email" placeholder="maria@exemplo.com" />
+      </div>
+
+      <!-- Blog card -->
+      <div class="comp-card" style="padding: 0; overflow: hidden;">
+        <div class="comp-title" style="padding: 14px 16px 0; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--oya-steel);">Card de blog</div>
+        <div style="padding: 8px 12px 12px;">
+          <div class="blog-card">
+            <div class="blog-card-img">
+              <span class="blog-card-cat">Tecnologia</span>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-title">Mulheres na Computação: quebrando barreiras</div>
+              <div class="blog-card-meta">15 Mai 2026 · 5 min de leitura</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ADMIN PANEL -->
+  <div class="section">
+    <div class="section-label">Painel administrativo</div>
+    <div class="two-col">
+
+      <!-- Sidebar -->
+      <div>
+        <div style="font-size: 11px; color: var(--oya-silver); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 500;">Navegação lateral</div>
+        <div class="sidebar">
+          <div style="font-size: 11px; font-weight: 500; color: var(--oya-silver); letter-spacing: 1px; text-transform: uppercase; padding: 4px 12px; margin-bottom: 8px;">Menu</div>
+          <div class="nav-item active"><i class="ti ti-layout-dashboard" aria-hidden="true"></i> Dashboard</div>
+          <div class="nav-item"><i class="ti ti-users" aria-hidden="true"></i> Participantes</div>
+          <div class="nav-item"><i class="ti ti-calendar" aria-hidden="true"></i> Atividades</div>
+          <div class="nav-item"><i class="ti ti-file-text" aria-hidden="true"></i> Publicações</div>
+          <div class="nav-item"><i class="ti ti-chart-bar" aria-hidden="true"></i> Relatórios</div>
+          <div style="height: 0.5px; background: var(--oya-fog); margin: 10px 0;"></div>
+          <div class="nav-item"><i class="ti ti-settings" aria-hidden="true"></i> Configurações</div>
+        </div>
+      </div>
+
+      <!-- Admin dark panel -->
+      <div>
+        <div style="font-size: 11px; color: var(--oya-silver); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 500;">Painel escuro</div>
+        <div class="admin-preview">
+          <div class="admin-header">
+            <div class="admin-title">Dashboard · Meninas Oyá</div>
+            <div style="width: 28px; height: 28px; background: var(--oya-ember); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="ti ti-bell" style="font-size: 14px; color: #fff;" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="admin-nav">
+            <div class="admin-nav-item active">Geral</div>
+            <div class="admin-nav-item">Atividades</div>
+            <div class="admin-nav-item">Conteúdo</div>
+          </div>
+          <div class="admin-stats">
+            <div class="admin-stat">
+              <div class="admin-stat-val">512</div>
+              <div class="admin-stat-label">Mulheres impactadas</div>
+            </div>
+            <div class="admin-stat">
+              <div class="admin-stat-val">24</div>
+              <div class="admin-stat-label">Atividades ativas</div>
+            </div>
+            <div class="admin-stat">
+              <div class="admin-stat-val">8</div>
+              <div class="admin-stat-label">Estados alcançados</div>
+            </div>
+          </div>
+          <div class="admin-row">
+            <div class="admin-row-name">Workshop de Python · São Luís</div>
+            <div class="admin-row-badge">Novo</div>
+          </div>
+          <div class="admin-row">
+            <div class="admin-row-name">Mentoria STEM · Fortaleza</div>
+            <div class="admin-row-badge green">Ativo</div>
+          </div>
+          <div class="admin-row">
+            <div class="admin-row-name">Hackathon Meninas Oyá</div>
+            <div class="admin-row-badge">Em breve</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPACING -->
+  <div class="section">
+    <div class="section-label">Espaçamento & Bordas</div>
+    <div class="two-col">
+      <div>
+        <div style="font-size: 11px; font-weight: 500; color: var(--oya-stone); margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">Escala de espaço</div>
+        <div class="spacing-row"><div class="spacing-block" style="width: 4px;"></div><div class="spacing-label">4px — xs</div></div>
+        <div class="spacing-row"><div class="spacing-block" style="width: 8px;"></div><div class="spacing-label">8px — sm</div></div>
+        <div class="spacing-row"><div class="spacing-block" style="width: 16px;"></div><div class="spacing-label">16px — md</div></div>
+        <div class="spacing-row"><div class="spacing-block" style="width: 24px;"></div><div class="spacing-label">24px — lg</div></div>
+        <div class="spacing-row"><div class="spacing-block" style="width: 40px;"></div><div class="spacing-label">40px — xl</div></div>
+      </div>
+      <div>
+        <div style="font-size: 11px; font-weight: 500; color: var(--oya-stone); margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">Raio de borda</div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 36px; height: 36px; background: var(--oya-ember); border-radius: 8px; flex-shrink: 0;"></div>
+            <div class="spacing-label">8px — sm · badges, tags</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 36px; height: 36px; background: var(--oya-ember); border-radius: 14px; flex-shrink: 0;"></div>
+            <div class="spacing-label">14px — md · cards</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 36px; height: 36px; background: var(--oya-ember); border-radius: 20px; flex-shrink: 0;"></div>
+            <div class="spacing-label">20px — lg · painéis</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 36px; height: 36px; background: var(--oya-ember); border-radius: 50px; flex-shrink: 0;"></div>
+            <div class="spacing-label">50px — pill · botões</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

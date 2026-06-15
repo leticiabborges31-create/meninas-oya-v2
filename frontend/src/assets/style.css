@@ -1,0 +1,137 @@
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:50px;
+padding:60px;
+}
+
+.card{
+background:white;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+padding:40px;
+transition:0.3s;
+min-height:350px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.card img{
+width:100%;
+border-radius:10px;
+margin-bottom:20px;
+height:200px;
+object-fit:cover;
+}
+
+.card h3{
+margin:10px 0;
+font-size:22px;
+color:#ff8a3d;
+}
+
+.card p{
+color:#777;
+font-size:16px;
+line-height:1.5;
+}
+/* FUNDO DA PÁGINA */
+body{
+background:#f4f4f4;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+/* CONTAINER DO PAINEL */
+.admin-container{
+width:450px;
+margin:60px auto;
+padding:35px;
+background:#111;
+border-radius:12px;
+box-shadow:0 8px 25px rgba(0,0,0,0.3);
+color:white;
+}
+
+/* TITULOS */
+.admin-container h2{
+text-align:center;
+margin-bottom:20px;
+color:#ff7a1a;
+}
+
+/* INPUTS */
+.admin-container input,
+.admin-container textarea{
+
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:6px;
+border:none;
+background:#1f1f1f;
+color:white;
+font-size:14px;
+
+}
+
+/* INPUT FOCUS */
+.admin-container input:focus,
+.admin-container textarea:focus{
+
+outline:none;
+border:2px solid #ff7a1a;
+
+}
+
+/* BOTÕES */
+.admin-container button{
+
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:6px;
+background:#ff7a1a;
+color:white;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
+transition:0.3s;
+
+}
+
+/* HOVER BOTÃO */
+.admin-container button:hover{
+
+background:#e66300;
+transform:scale(1.03);
+
+}
+
+/* BOTÃO PUBLICAR DIFERENTE */
+.publicar{
+
+background:#000;
+border:2px solid #ff7a1a;
+
+}
+
+.publicar:hover{
+
+background:#ff7a1a;
+
+}
+
+/* TEXTAREA */
+.admin-container textarea{
+
+height:100px;
+resize:none;
+
+}

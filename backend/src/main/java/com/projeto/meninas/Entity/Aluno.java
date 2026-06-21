@@ -33,7 +33,7 @@ public class Aluno implements Serializable {
 
     @Min(value = 0, message = "Idade invalida")
     @Max(value = 150, message = "Idade invalida")
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer idade;
 
     @ManyToOne(fetch = FetchType.EAGER)

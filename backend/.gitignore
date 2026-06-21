@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Credenciais de producao
+src/main/resources/application-prod.properties
+src/main/resources/chave_privada.pem

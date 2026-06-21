@@ -346,10 +346,29 @@
           </svg>
           <h2 class="secao-titulo">Meus Alunos</h2>
           <button @click="mostrarFormAluno = !mostrarFormAluno" class="btn-novo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13">
+              <template v-if="!mostrarFormAluno"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></template>
+              <template v-else><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></template>
+            </svg>
             {{ mostrarFormAluno ? 'Cancelar' : 'Novo Aluno' }}
           </button>
         </div>
+
+        <transition name="fade">
+          <div v-if="sucessoAluno" class="sucesso-msg">
+            <svg class="icon-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Aluno cadastrado com sucesso!
+          </div>
+        </transition>
+
+        <transition name="fade">
+          <div v-if="erroAlunoMsg" class="erro-msg">
+            <svg class="icon-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            {{ erroAlunoMsg }}
+          </div>
+        </transition>
 
         <div v-if="mostrarFormAluno" class="form-bloco">
           <div class="form-grid">
@@ -378,31 +397,36 @@
             <svg class="icon-btn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
             Cadastrar Aluno
           </button>
-          <div v-if="sucessoAluno" class="sucesso-msg">
-            <svg class="icon-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            Aluno cadastrado com sucesso!
-          </div>
         </div>
 
         <div v-if="meusAlunos.length === 0 && !mostrarFormAluno" class="vazio-msg">Nenhum aluno cadastrado ainda.</div>
-        <table v-else-if="meusAlunos.length > 0" class="tabela">
-          <thead><tr><th>Nome</th><th>Vínculo</th><th>Instituição</th><th>Ações</th></tr></thead>
-          <tbody>
-            <tr v-for="a in meusAlunos" :key="a.id">
-              <td>{{ a.nome }}</td>
-              <td>{{ a.vinculo ? a.vinculo.replace('_', ' ') : '—' }}</td>
-              <td>{{ a.escola?.nome || '—' }}</td>
-              <td>
-                <button @click="deletarAluno(a.id)" class="btn-apagar" title="Remover">
-                  <svg class="icon-delete" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="3 6 5 6 21 6"/>
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                  </svg>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div v-else-if="meusAlunos.length > 0" class="table-wrapper">
+          <table class="alunos-table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Vínculo</th>
+                <th>Instituição</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="a in meusAlunos" :key="a.id">
+                <td class="aluno-nome">{{ a.nome }}</td>
+                <td><span class="vinculo-badge" :class="vinculoClass(a.vinculo)">{{ vinculoLabel(a.vinculo) }}</span></td>
+                <td class="aluno-escola">{{ a.escola?.nome || '—' }}</td>
+                <td class="aluno-acoes">
+                  <button @click="deletarAluno(a.id)" class="btn-apagar" title="Remover aluno">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
+                      <polyline points="3 6 5 6 21 6"/>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -501,7 +525,8 @@ export default {
       novoAluno: { nome: '', escolaId: '', vinculo: '' },
       listaEscolas: [],
       mostrarFormAluno: false,
-      sucessoAluno: false
+      sucessoAluno: false,
+      erroAlunoMsg: ''
     }
   },
 
@@ -739,6 +764,26 @@ export default {
       } catch (e) { console.error('Erro ao carregar alunos:', e) }
     },
 
+    vinculoLabel(v) {
+      const map = {
+        'BOLSISTA_ADC': 'Bolsista ADC',
+        'BOLSISTA_ICJ': 'Bolsista ICJ',
+        'BOLSISTA_IC': 'Bolsista IC',
+        'VOLUNTARIA': 'Voluntária',
+      }
+      return map[v] || '—'
+    },
+
+    vinculoClass(v) {
+      const map = {
+        'BOLSISTA_ADC': 'vinculo-adc',
+        'BOLSISTA_ICJ': 'vinculo-icj',
+        'BOLSISTA_IC': 'vinculo-ic',
+        'VOLUNTARIA': 'vinculo-vol',
+      }
+      return map[v] || 'vinculo-null'
+    },
+
     async salvarAluno() {
       if (!this.novoAluno.nome.trim()) return
       try {
@@ -757,10 +802,15 @@ export default {
         if (!res.ok) throw new Error(await res.text())
         this.novoAluno = { nome: '', escolaId: '', vinculo: '' }
         this.mostrarFormAluno = false
+        this.erroAlunoMsg = ''
         this.sucessoAluno = true
         setTimeout(() => { this.sucessoAluno = false }, 3000)
         await this.carregarMeusAlunos()
-      } catch (e) { console.error('Erro ao salvar aluno:', e) }
+      } catch (e) {
+        this.erroAlunoMsg = 'Erro ao salvar aluno. Tente novamente.'
+        setTimeout(() => { this.erroAlunoMsg = '' }, 5000)
+        console.error('Erro ao salvar aluno:', e)
+      }
     },
 
     async deletarAluno(id) {
@@ -1268,6 +1318,81 @@ export default {
 
 .fade-enter-active, .fade-leave-active { transition: opacity 0.3s; }
 .fade-enter-from, .fade-leave-to { opacity: 0; }
+
+/* ── MEUS ALUNOS ────────────────────────────────────────── */
+.btn-novo {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 0.85rem;
+  border: 1.5px solid var(--oya-fog);
+  border-radius: var(--radius-pill);
+  background: #fff;
+  color: var(--oya-stone);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+}
+.btn-novo:hover {
+  background: var(--oya-ember);
+  border-color: var(--oya-ember);
+  color: #fff;
+}
+
+.form-bloco {
+  padding: 1.25rem;
+  background: var(--oya-bg);
+  border: 1px solid var(--oya-fog);
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+}
+
+.alunos-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.alunos-table th {
+  text-align: left;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--oya-stone);
+  border-bottom: 1.5px solid var(--oya-fog);
+}
+.alunos-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  color: var(--oya-char);
+  vertical-align: middle;
+}
+.alunos-table tr:last-child td { border-bottom: none; }
+.alunos-table tr:hover td { background: rgba(26, 58, 42, 0.02); }
+
+.aluno-nome   { font-weight: 500; }
+.aluno-escola { color: var(--oya-stone); font-size: 0.85rem; }
+.aluno-acoes  { width: 3rem; text-align: right; }
+
+.vinculo-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.65rem;
+  border-radius: 2rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.vinculo-adc  { background: rgba(74, 122, 98, 0.12);   color: var(--oya-sage); }
+.vinculo-icj  { background: rgba(26, 58, 42, 0.10);    color: var(--oya-forest); }
+.vinculo-ic   { background: rgba(100, 149, 237, 0.12); color: #4a7cc5; }
+.vinculo-vol  { background: rgba(217, 79, 30, 0.10);   color: var(--oya-ember); }
+.vinculo-null { background: rgba(168, 168, 164, 0.12); color: var(--oya-steel); }
 
 @media (max-width: 600px) {
   .dash-grid { grid-template-columns: 1fr; }

@@ -14,8 +14,8 @@
 
         <div class="form-group">
           <label class="form-label">Email ou usuário</label>
-          <input 
-            v-model="loginUsername" 
+          <input
+            v-model="loginUsername"
             type="text"
             placeholder="seu@email.com ou ADMIN"
             class="form-input"
@@ -25,9 +25,9 @@
 
         <div class="form-group">
           <label class="form-label">Senha</label>
-          <input 
-            v-model="loginpassword" 
-            type="password" 
+          <input
+            v-model="loginpassword"
+            type="password"
             placeholder="••••••••"
             class="form-input"
             required
@@ -39,7 +39,7 @@
 
       <!-- RODAPÉ -->
       <div class="login-footer">
-        <p class="login-text">Não tem conta? 
+        <p class="login-text">Não tem conta?
           <button @click="$router.push('/cadastro')" class="btn-link">Criar conta</button>
         </p>
       </div>

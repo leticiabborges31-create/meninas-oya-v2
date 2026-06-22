@@ -162,7 +162,7 @@
         <div class="logos-financiadores">
           <div class="logo-item">
             <img 
-              src="https://portalpadrao.ufma.br/ineof/imagens/logo-cnpq.png" 
+              src="../assets/cnpq.png" 
               alt="CNPq - Conselho Nacional de Desenvolvimento Científico e Tecnológico"
               class="logo-financiador cnpq"
             />
@@ -234,7 +234,7 @@
 
           <!-- Logo CNPq -->
           <img
-            src="https://portalpadrao.ufma.br/ineof/imagens/logo-cnpq.png"
+            src="../assets/cnpq.png"
             alt="CNPq"
             class="rodape-logo-inst"
           />

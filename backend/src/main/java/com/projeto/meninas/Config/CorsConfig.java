@@ -14,7 +14,11 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         // Origens permitidas (dev: Vite usa 5173 e 5174 quando uma porta esta ocupada)
-        config.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:5174"));
+       config.setAllowedOrigins(List.of(
+                "http://localhost:5173",
+                "http://localhost:5174",
+                "https://meninas-oya-v2.vercel.app"
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
 
@@ -22,7 +26,7 @@ public class CorsConfig {
         config.setAllowCredentials(true);
 
         // Importante: expõe headers customizados se necessário
-        config.setExposedHeaders(List.of("Authorizatin", "Content-Type"));
+        config.setExposedHeaders(List.of("Authorization", "Content-Type"));
 
         // Cache de preflight
         config.setMaxAge(3600L);

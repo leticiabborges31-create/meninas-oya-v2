@@ -730,7 +730,7 @@
 import PainelShell from '@/components/PainelShell.vue'
 import CidadeSelect from '@/components/CidadeSelect.vue'
 
-const API = "http://localhost:8080"
+const API = "https://meninas-oya-v2.onrender.com"
 
 export default {
   components: { PainelShell, CidadeSelect },

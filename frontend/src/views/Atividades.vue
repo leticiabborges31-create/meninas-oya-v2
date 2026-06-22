@@ -20,7 +20,7 @@
         <!-- IMAGEM -->
         <div class="card-imagem" v-if="atividade.id">
           <img
-            :src="`http://localhost:8080/atividades/${atividade.id}/foto`"
+            :src="`https://meninas-oya-v2.onrender.com/atividades/${atividade.id}/foto`"
             :alt="atividade.titulo"
             @error="e => e.target.style.display='none'"
           />
@@ -67,7 +67,7 @@ export default {
   methods: {
     async carregarAtividades() {
       try {
-        const response = await fetch("http://localhost:8080/atividades")
+        const response = await fetch("https://meninas-oya-v2.onrender.com/atividades")
         if (!response.ok) throw new Error("Erro ao buscar atividades")
         const dados = await response.json()
         this.atividades = dados.sort((a, b) => new Date(b.data || 0) - new Date(a.data || 0))
@@ -93,7 +93,7 @@ export default {
       if (!confirm("Tem certeza que deseja apagar esta atividade?")) return
       try {
         const token = localStorage.getItem("token")
-        const response = await fetch(`http://localhost:8080/atividades/${id}`, {
+        const response = await fetch(`https://meninas-oya-v2.onrender.com/atividades/${id}`, {
           method: "DELETE",
           headers: {
             "Authorization": `Bearer ${token}`

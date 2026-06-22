@@ -14,7 +14,7 @@
       <!-- Foto principal -->
       <div class="detalhe-hero" v-if="temFoto">
         <img
-          :src="`http://localhost:8080/atividades/${atividade.id}/foto`"
+          :src="`https://meninas-oya-v2.onrender.com/atividades/${atividade.id}/foto`"
           :alt="atividade.titulo"
           class="detalhe-foto"
           @error="temFoto = false"
@@ -34,7 +34,7 @@
         <!-- Segunda foto -->
         <div class="detalhe-foto2-bloco" v-if="temFoto2">
           <img
-            :src="`http://localhost:8080/atividades/${atividade.id}/foto2`"
+            :src="`https://meninas-oya-v2.onrender.com/atividades/${atividade.id}/foto2`"
             :alt="atividade.titulo"
             class="detalhe-foto2"
             @error="temFoto2 = false"
@@ -77,7 +77,7 @@ export default {
     async carregarAtividade() {
       const id = this.$route.params.id
       try {
-        const response = await fetch(`http://localhost:8080/atividades/${id}`)
+        const response = await fetch(`https://meninas-oya-v2.onrender.com/atividades/${id}`)
         if (!response.ok) throw new Error("Não encontrada")
         this.atividade = await response.json()
       } catch (error) {

@@ -291,7 +291,7 @@ export default {
 
   methods: {
     carregarAtividades() {
-      fetch("http://localhost:8080/atividades")
+      fetch("https://meninas-oya-v2.onrender.com/atividades")
         .then(res => res.json())
         .then(dados => {
           this.atividades = dados.sort((a, b) => new Date(b.data) - new Date(a.data));
@@ -301,7 +301,7 @@ export default {
 
     carregarInstituicoes() {
       this.carregandoInstituicoes = true;
-      fetch("http://localhost:8080/api/escolas/simples")
+      fetch("https://meninas-oya-v2.onrender.com/api/escolas/simples")
         .then(res => res.json())
         .then(dados => { this.instituicoes = Array.isArray(dados) ? dados : []; })
         .catch(err => console.error("Erro ao buscar instituições:", err))

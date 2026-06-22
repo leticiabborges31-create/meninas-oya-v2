@@ -555,10 +555,10 @@ export default {
     async carregarDashboard() {
       try {
         const [profRes, ativRes] = await Promise.all([
-          fetch("http://localhost:8080/api/professores/me", {
+          fetch("https://meninas-oya-v2.onrender.com/api/professores/me", {
             headers: { "Authorization": `Bearer ${this.token()}` }
           }),
-          fetch("http://localhost:8080/atividades/minhas", {
+          fetch("https://meninas-oya-v2.onrender.com/atividades/minhas", {
             headers: { "Authorization": `Bearer ${this.token()}` }
           })
         ])
@@ -585,7 +585,7 @@ export default {
     async carregarMinhasAtividades() {
       this.carregandoAtividades = true
       try {
-        const res = await fetch("http://localhost:8080/atividades/minhas", {
+        const res = await fetch("https://meninas-oya-v2.onrender.com/atividades/minhas", {
           headers: { "Authorization": `Bearer ${this.token()}` }
         })
         if (res.ok) this.minhasAtividades = await res.json()
@@ -633,7 +633,7 @@ export default {
         if (this.editandoAtividade.foto) formData.append('foto', this.editandoAtividade.foto)
         if (this.editandoAtividade.foto2) formData.append('foto2', this.editandoAtividade.foto2)
 
-        const res = await fetch(`http://localhost:8080/atividades/${this.editandoAtividade.id}`, {
+        const res = await fetch(`https://meninas-oya-v2.onrender.com/atividades/${this.editandoAtividade.id}`, {
           method: 'PUT',
           headers: { 'Authorization': `Bearer ${this.token()}` },
           body: formData
@@ -647,7 +647,7 @@ export default {
     async deletarAtividade(id) {
       if (!confirm("Deseja excluir esta atividade?")) return
       try {
-        const res = await fetch(`http://localhost:8080/atividades/${id}`, {
+        const res = await fetch(`https://meninas-oya-v2.onrender.com/atividades/${id}`, {
           method: "DELETE",
           headers: { "Authorization": `Bearer ${this.token()}` }
         })
@@ -669,7 +669,7 @@ export default {
         if (this.file) formData.append("foto", this.file)
         if (this.file2) formData.append("foto2", this.file2)
 
-        const res = await fetch("http://localhost:8080/atividades", {
+        const res = await fetch("https://meninas-oya-v2.onrender.com/atividades", {
           method: "POST",
           headers: { "Authorization": `Bearer ${this.token()}` },
           body: formData
@@ -705,7 +705,7 @@ export default {
         const payload = { ...this.editandoPerfil }
         if (!payload.senha) delete payload.senha
 
-        const res = await fetch(`http://localhost:8080/api/professores/${this.professorId}`, {
+        const res = await fetch(`https://meninas-oya-v2.onrender.com/api/professores/${this.professorId}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -754,10 +754,10 @@ export default {
     async carregarMeusAlunos() {
       try {
         const [alunosRes, escolasRes] = await Promise.all([
-          fetch('http://localhost:8080/api/alunos', {
+          fetch('https://meninas-oya-v2.onrender.com/api/alunos', {
             headers: { 'Authorization': `Bearer ${this.token()}` }
           }),
-          fetch('http://localhost:8080/api/escolas/simples')
+          fetch('https://meninas-oya-v2.onrender.com/api/escolas/simples')
         ])
         if (alunosRes.ok) this.meusAlunos = await alunosRes.json()
         if (escolasRes.ok) this.listaEscolas = await escolasRes.json()
@@ -787,7 +787,7 @@ export default {
     async salvarAluno() {
       if (!this.novoAluno.nome.trim()) return
       try {
-        const res = await fetch('http://localhost:8080/api/alunos', {
+        const res = await fetch('https://meninas-oya-v2.onrender.com/api/alunos', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -816,7 +816,7 @@ export default {
     async deletarAluno(id) {
       if (!confirm('Deseja remover este aluno?')) return
       try {
-        const res = await fetch(`http://localhost:8080/api/alunos/${id}`, {
+        const res = await fetch(`https://meninas-oya-v2.onrender.com/api/alunos/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${this.token()}` }
         })

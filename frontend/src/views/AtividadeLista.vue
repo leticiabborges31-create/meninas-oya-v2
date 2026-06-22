@@ -29,7 +29,7 @@
       >
         <img
           v-if="atividade.id"
-          :src="`http://localhost:8080/atividades/${atividade.id}/foto`"
+          :src="`https://meninas-oya-v2.onrender.com/atividades/${atividade.id}/foto`"
           :alt="atividade.titulo"
           class="card-imagem"
           @error="e => e.target.style.display='none'"
@@ -86,7 +86,7 @@ export default {
         const params = new URLSearchParams()
         if (this.filtroUf) params.set('uf', this.filtroUf)
         if (this.filtroCidadeId) params.set('cidadeId', this.filtroCidadeId)
-        const url = `http://localhost:8080/atividades${params.toString() ? '?' + params.toString() : ''}`
+        const url = `https://meninas-oya-v2.onrender.com/atividades${params.toString() ? '?' + params.toString() : ''}`
         const response = await fetch(url)
         if (!response.ok) throw new Error("Erro ao buscar atividades")
         const dados = await response.json()
@@ -103,7 +103,7 @@ export default {
       this.filtroCidades = []
       if (this.filtroUf) {
         try {
-          const res = await fetch(`http://localhost:8080/api/cidades?uf=${this.filtroUf}&size=500`)
+          const res = await fetch(`https://meninas-oya-v2.onrender.com/api/cidades?uf=${this.filtroUf}&size=500`)
           if (res.ok) {
             const data = await res.json()
             this.filtroCidades = Array.isArray(data) ? data : (data.content || [])
@@ -144,7 +144,7 @@ export default {
       if (!confirm("Tem certeza que deseja apagar esta atividade?")) return
       try {
         const token = localStorage.getItem("token")
-        const response = await fetch(`http://localhost:8080/atividades/${id}`, {
+        const response = await fetch(`https://meninas-oya-v2.onrender.com/atividades/${id}`, {
           method: "DELETE",
           headers: { "Authorization": `Bearer ${token}` }
         })

@@ -79,7 +79,7 @@
         <div class="numero-divider"></div>
         <div class="numero-item">
           <span class="numero-big">50+</span>
-          <span class="numero-label">Mulheres impactadas</span>
+          <span class="numero-label">Mulheres e meninas impactadas</span>
         </div>
         <div class="numero-divider"></div>
         <div class="numero-item">

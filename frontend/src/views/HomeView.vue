@@ -27,7 +27,7 @@
               alt="Meninas Oyá"
             />
           </div>
-          <div class="hero-badge">+50 mulheres impactadas</div>
+          <div class="hero-badge">+50 meninas e mulheres impactadas</div>
         </div>
       </div>
       <div class="hero-linha"></div>
@@ -161,16 +161,16 @@
         <h3 class="financiadores-titulo">Financiado por</h3>
         <div class="logos-financiadores">
           <div class="logo-item">
-            <img 
-              src="../assets/cnpq.png" 
+            <img
+              src="https://portalpadrao.ufma.br/ineof/imagens/cnpq.png"
               alt="CNPq - Conselho Nacional de Desenvolvimento Científico e Tecnológico"
               class="logo-financiador cnpq"
             />
           </div>
           <div class="logo-divider"></div>
           <div class="logo-item">
-            <img 
-              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Crect fill='%23009600' width='50' height='100'/%3E%3Crect fill='%23FFFF00' x='50' width='50' height='100'/%3E%3Crect fill='%23003399' x='100' width='50' height='100'/%3E%3Crect fill='%23009600' x='150' width='50' height='100'/%3E%3C/svg%3E" 
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Crect fill='%23009600' width='50' height='100'/%3E%3Crect fill='%23FFFF00' x='50' width='50' height='100'/%3E%3Crect fill='%23003399' x='100' width='50' height='100'/%3E%3Crect fill='%23009600' x='150' width='50' height='100'/%3E%3C/svg%3E"
               alt="Governo Federal do Brasil"
               class="logo-financiador gov"
             />
@@ -234,7 +234,7 @@
 
           <!-- Logo CNPq -->
           <img
-            src="../assets/cnpq.png"
+            src="https://portalpadrao.ufma.br/ineof/imagens/logo-cnpq.png"
             alt="CNPq"
             class="rodape-logo-inst"
           />
@@ -1609,11 +1609,11 @@ export default {
   .carrossel { flex-direction: column; }
 
   .logos-financiadores { gap: 2rem; }
-  
+
   .logo-divider {
     display: none;
   }
-  
+
   .logo-financiador {
     max-width: 140px;
     max-height: 80px;

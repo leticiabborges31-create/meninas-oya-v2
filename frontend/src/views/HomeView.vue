@@ -162,7 +162,7 @@
         <div class="logos-financiadores">
           <div class="logo-item">
             <img
-               src="../assets/cnpq.png"
+               src="../assets/cnpqoficial.png"
               alt="CNPq - Conselho Nacional de Desenvolvimento Científico e Tecnológico"
               class="logo-financiador cnpq"
             />

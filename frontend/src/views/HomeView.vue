@@ -170,7 +170,7 @@
           <div class="logo-divider"></div>
           <div class="logo-item">
             <img
-              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Crect fill='%23009600' width='50' height='100'/%3E%3Crect fill='%23FFFF00' x='50' width='50' height='100'/%3E%3Crect fill='%23003399' x='100' width='50' height='100'/%3E%3Crect fill='%23009600' x='150' width='50' height='100'/%3E%3C/svg%3E"
+              src="../assets/mcti.png"
               alt="Governo Federal do Brasil"
               class="logo-financiador gov"
             />

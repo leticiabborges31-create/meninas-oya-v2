@@ -1,5 +1,5 @@
 <script setup>
-import carolinaFoto from '../assets/carolina.png'
+import carolinaFoto from '../assets/carolina.jpeg'
 import graciellaFoto from '../assets/graciella.png'
 import inesFoto from '../assets/ines.png'
 import isabelleFoto from '../assets/isabelle.png'
@@ -50,7 +50,7 @@ const coordenadoras = [
           <h1 class="coord-titulo">
            As lideranças que fazem a <br />
             rede acontecer<br />
-            
+
           </h1>
         </div>
         <div class="coord-hero-detalhe">

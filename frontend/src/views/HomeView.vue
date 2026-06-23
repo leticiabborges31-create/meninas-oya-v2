@@ -221,7 +221,7 @@
             contato@meninasoya.ufma.br
           </span>
           <!-- TODO: substituir # pelo link real do Instagram -->
-          <a href="#" target="_blank" rel="noopener" class="rodape-instagram" aria-label="Instagram Meninas Oyá">
+          <a href="https://www.instagram.com/meninasoya/" target="_blank" rel="noopener" class="rodape-instagram" aria-label="Instagram Meninas Oyá">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
             @meninasoya
           </a>
@@ -861,8 +861,8 @@ export default {
 }
 
 .logo-financiador {
-  max-width: 180px;
-  max-height: 100px;
+  max-width: 260px;
+  max-height: 150px;
   height: auto;
   object-fit: contain;
   transition: transform 0.3s;
@@ -954,7 +954,7 @@ export default {
 
   .logos-financiadores { gap: 2rem; }
   .logo-divider { display: none; }
-  .logo-financiador { max-width: 140px; max-height: 80px; }
+  .logo-financiador {   max-width: 200px; max-height: 120px; }
 
   .rodape { padding: 2.5rem 1.5rem; }
   .rodape-inner { flex-direction: column; text-align: center; }
@@ -1517,8 +1517,8 @@ export default {
 }
 
 .logo-financiador {
-  max-width: 180px;
-  max-height: 100px;
+  max-width: 260px;
+  max-height: 150px;
   height: auto;
   object-fit: contain;
   transition: transform 0.3s, filter 0.3s;
@@ -1615,8 +1615,8 @@ export default {
   }
 
   .logo-financiador {
-    max-width: 140px;
-    max-height: 80px;
+    max-width: 200px;
+    max-height: 120px;
   }
 
   .rodape { padding: 2.5rem 1.5rem; }

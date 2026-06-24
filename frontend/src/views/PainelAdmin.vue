@@ -261,7 +261,7 @@
               <circle cx="12" cy="8" r="4"/>
               <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
             </svg>
-            <h2 class="secao-titulo">Alunos</h2>
+            <h2 class="secao-titulo">Estudantes</h2>
             <button @click="mostrarFormAluno = !mostrarFormAluno" class="btn-novo">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               {{ mostrarFormAluno ? 'Cancelar' : 'Novo Aluno' }}
@@ -302,7 +302,7 @@
               <svg class="icon-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
-              Aluno cadastrado com sucesso!
+              EStudante cadastrado com sucesso!
             </div>
           </div>
 
@@ -312,7 +312,7 @@
               <circle cx="11" cy="11" r="8"/>
               <path d="m21 21-4.35-4.35"/>
             </svg>
-            Nenhum aluno cadastrado.
+            Nenhum estudante cadastrado.
           </div>
           <table v-else-if="alunos.length > 0" class="tabela">
             <thead>

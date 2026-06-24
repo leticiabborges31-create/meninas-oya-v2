@@ -373,7 +373,7 @@
         <div v-if="mostrarFormAluno" class="form-bloco">
           <div class="form-grid">
             <div class="form-group">
-              <label>Nome do aluno</label>
+              <label>Nome da estudante</label>
               <input v-model="novoAluno.nome" type="text" placeholder="Nome completo" class="form-input" />
             </div>
             <div class="form-group">
@@ -395,11 +395,11 @@
           </div>
           <button @click="salvarAluno" class="btn-salvar" :disabled="!novoAluno.nome.trim()">
             <svg class="icon-btn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            Cadastrar Aluno
+            Cadastrar estudante
           </button>
         </div>
 
-        <div v-if="meusAlunos.length === 0 && !mostrarFormAluno" class="vazio-msg">Nenhum aluno cadastrado ainda.</div>
+        <div v-if="meusAlunos.length === 0 && !mostrarFormAluno" class="vazio-msg">Nenhuma estudante cadastrado ainda.</div>
         <div v-else-if="meusAlunos.length > 0" class="table-wrapper">
           <table class="alunos-table">
             <thead>

@@ -234,7 +234,7 @@
 
           <!-- Logo CNPq -->
           <img
-            src="https://portalpadrao.ufma.br/ineof/imagens/logo-cnpq.png"
+            src="../assets/cnpqoficial.png"
             alt="CNPq"
             class="rodape-logo-inst"
           />

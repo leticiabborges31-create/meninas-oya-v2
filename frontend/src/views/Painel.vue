@@ -357,7 +357,7 @@
         <transition name="fade">
           <div v-if="sucessoAluno" class="sucesso-msg">
             <svg class="icon-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            Aluno cadastrado com sucesso!
+            Estudante cadastrada com sucesso!
           </div>
         </transition>
 
@@ -416,7 +416,7 @@
                 <td><span class="vinculo-badge" :class="vinculoClass(a.vinculo)">{{ vinculoLabel(a.vinculo) }}</span></td>
                 <td class="aluno-escola">{{ a.escola?.nome || '—' }}</td>
                 <td class="aluno-acoes">
-                  <button @click="deletarAluno(a.id)" class="btn-apagar" title="Remover aluno">
+                  <button @click="deletarAluno(a.id)" class="btn-apagar" title="Remover estudante">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
                       <polyline points="3 6 5 6 21 6"/>
                       <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
@@ -807,14 +807,14 @@ export default {
         setTimeout(() => { this.sucessoAluno = false }, 3000)
         await this.carregarMeusAlunos()
       } catch (e) {
-        this.erroAlunoMsg = 'Erro ao salvar aluno. Tente novamente.'
+        this.erroAlunoMsg = 'Erro ao salvar estudante. Tente novamente.'
         setTimeout(() => { this.erroAlunoMsg = '' }, 5000)
         console.error('Erro ao salvar aluno:', e)
       }
     },
 
     async deletarAluno(id) {
-      if (!confirm('Deseja remover este aluno?')) return
+      if (!confirm('Deseja remover esta estudante?')) return
       try {
         const res = await fetch(`https://meninas-oya-v2.onrender.com/api/alunos/${id}`, {
           method: 'DELETE',

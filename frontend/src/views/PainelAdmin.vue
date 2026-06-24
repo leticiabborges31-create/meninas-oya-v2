@@ -264,7 +264,7 @@
             <h2 class="secao-titulo">Estudantes</h2>
             <button @click="mostrarFormAluno = !mostrarFormAluno" class="btn-novo">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              {{ mostrarFormAluno ? 'Cancelar' : 'Novo Aluno' }}
+              {{ mostrarFormAluno ? 'Cancelar' : 'Nova Estudante' }}
             </button>
           </div>
 
@@ -740,7 +740,7 @@ export default {
       abas: [
         { key: 'pendentes', label: 'Pendentes' },
         { key: 'atividades', label: 'Atividades' },
-        { key: 'alunos', label: 'Alunos' },
+        { key: 'alunos', label: 'Estudantes' },
         { key: 'professores', label: 'Professores' },
         { key: 'escolas', label: 'Instituições' }
       ],

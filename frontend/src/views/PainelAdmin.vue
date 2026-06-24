@@ -296,7 +296,7 @@
                 <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z"/>
                 <polyline points="17 6 12 13 7 8"/>
               </svg>
-              Cadastrar Aluno
+              Cadastrar Estudante
             </button>
             <div v-if="sucessoAluno" class="sucesso-msg">
               <svg class="icon-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
